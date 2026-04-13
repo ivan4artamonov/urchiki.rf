@@ -1,10 +1,10 @@
 ---
-description: Delete files only through console commands
+description: Удалять файлы только через команды консоли
 alwaysApply: true
 ---
 
-# File Deletion Policy
+# Политика удаления файлов
 
-- Delete files and directories only via console commands.
-- On Windows PowerShell use `Remove-Item` with explicit paths.
-- Do not use editor-side delete tools for file removal.
+- Удаляй файлы и директории только через команды консоли.
+- В Windows PowerShell используй `Remove-Item` с явно указанными путями.
+- Не используй инструменты удаления файлов со стороны редактора.
