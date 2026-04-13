@@ -1,0 +1,10 @@
+---
+description: Delete files only through console commands
+alwaysApply: true
+---
+
+# File Deletion Policy
+
+- Delete files and directories only via console commands.
+- On Windows PowerShell use `Remove-Item` with explicit paths.
+- Do not use editor-side delete tools for file removal.
