@@ -1,4 +1,4 @@
-<div class="min-h-screen flex items-center justify-center bg-neutral-secondary-soft p-4">
+<div class="flex min-h-[calc(100dvh-5rem)] w-full items-center justify-center">
 	<x-card>
 		<form wire:submit="authenticate">
 			<h5 class="text-xl font-semibold text-heading mb-6">Вход в админку</h5>
