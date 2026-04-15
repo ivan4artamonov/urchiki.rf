@@ -7,6 +7,7 @@
 				<x-admin.table.header>ID</x-admin.table.header>
 				<x-admin.table.header>Имя</x-admin.table.header>
 				<x-admin.table.header>Email</x-admin.table.header>
+				<x-admin.table.header>Админ</x-admin.table.header>
 				<x-admin.table.header>Регистрация</x-admin.table.header>
 			</tr>
 		</x-admin.table.head>
@@ -18,11 +19,18 @@
 						{{ $user->name ?: '—' }}
 					</x-admin.table.cell>
 					<x-admin.table.cell>{{ $user->email }}</x-admin.table.cell>
+					<x-admin.table.cell class="whitespace-nowrap">
+						@if ($user->is_admin)
+							Да
+						@else
+							Нет
+						@endif
+					</x-admin.table.cell>
 					<x-admin.table.cell class="whitespace-nowrap">{{ $user->created_at?->format('d.m.Y H:i') ?? '—' }}</x-admin.table.cell>
 				</x-admin.table.row>
 			@empty
 				<x-admin.table.row>
-					<x-admin.table.cell :colspan="4" class="py-8 text-center text-body">Пользователей пока нет.</x-admin.table.cell>
+					<x-admin.table.cell :colspan="5" class="py-8 text-center text-body">Пользователей пока нет.</x-admin.table.cell>
 				</x-admin.table.row>
 			@endforelse
 		</x-admin.table.body>
