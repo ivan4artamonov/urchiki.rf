@@ -41,7 +41,7 @@
 								['label' => 'Рабочие листы', 'href' => route('admin.worksheets'), 'active' => request()->routeIs('admin.worksheets')],
 								['label' => 'Пользователи', 'href' => route('admin.users'), 'active' => request()->routeIs('admin.users')],
 								['label' => 'ЧаВо', 'href' => route('admin.faq'), 'active' => request()->routeIs('admin.faq')],
-								['label' => 'Тарифы', 'href' => route('admin.tariffs'), 'active' => request()->routeIs('admin.tariffs')],
+								['label' => 'Тарифы', 'href' => route('admin.tariffs.index'), 'active' => request()->routeIs('admin.tariffs*')],
 							];
 						@endphp
 						<ul class="mt-4 flex flex-col rounded-base border border-default bg-neutral-secondary-soft p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-neutral-primary rtl:space-x-reverse">

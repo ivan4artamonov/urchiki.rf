@@ -11,9 +11,7 @@
 					wire:model="email"
 					autocomplete="email"
 				/>
-				@error('email')
-					<p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-				@enderror
+				<x-admin.validation-error field="email" />
 			</div>
 
 			<div>
@@ -24,9 +22,7 @@
 					wire:model="password"
 					autocomplete="current-password"
 				/>
-				@error('password')
-					<p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-				@enderror
+				<x-admin.validation-error field="password" />
 			</div>
 
 			<div class="flex items-start my-6">
