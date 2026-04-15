@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\LogoutController;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\Faq;
 use App\Livewire\Admin\Login;
-use App\Livewire\Admin\Subscription;
+use App\Livewire\Admin\Tariffs;
 use App\Livewire\Admin\Users;
 use App\Livewire\Admin\Worksheets;
 use App\Livewire\Site\Home;
@@ -24,7 +24,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 		Route::get('/worksheets', Worksheets::class)->name('worksheets');
 		Route::get('/users', Users::class)->name('users');
 		Route::get('/faq', Faq::class)->name('faq');
-		Route::get('/subscription', Subscription::class)->name('subscription');
+		Route::get('/tariffs', Tariffs::class)->name('tariffs');
 		Route::post('/logout', LogoutController::class)->name('logout');
 	});
 });
