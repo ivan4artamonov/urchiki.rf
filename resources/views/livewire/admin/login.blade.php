@@ -1,10 +1,10 @@
 <div class="flex min-h-[calc(100dvh-5rem)] w-full items-center justify-center">
-	<x-card>
+	<x-admin.card>
 		<form wire:submit="authenticate">
 			<h5 class="text-xl font-semibold text-heading mb-6">Вход в админку</h5>
 
 			<div class="mb-4">
-				<x-input
+				<x-admin.input
 					id="email"
 					label="Email"
 					type="email"
@@ -17,7 +17,7 @@
 			</div>
 
 			<div>
-				<x-input
+				<x-admin.input
 					id="password"
 					label="Пароль"
 					type="password"
@@ -30,15 +30,15 @@
 			</div>
 
 			<div class="flex items-start my-6">
-				<x-checkbox id="remember" wire:model="remember" label="Запомнить меня" />
+				<x-admin.checkbox id="remember" wire:model="remember" label="Запомнить меня" />
 			</div>
 
-			<x-button
+			<x-admin.button
 				type="submit"
 				class="w-full"
 			>
 				Войти
-			</x-button>
+			</x-admin.button>
 		</form>
-	</x-card>
+	</x-admin.card>
 </div>
