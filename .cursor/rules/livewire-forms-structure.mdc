@@ -1,0 +1,23 @@
+---
+description: Структура Livewire Form-классов по контекстам Admin и Site
+alwaysApply: true
+---
+
+# Структура Livewire Form-классов
+
+- Form-классы размещать рядом с контекстом использования, а не в общей папке.
+- Для админки использовать путь `app/Livewire/Admin/Forms`.
+- Для публичной части сайта использовать путь `app/Livewire/Site/Forms`.
+- Не создавать новые Form-классы в `app/Livewire/Forms` без контекстной вложенности.
+
+## Нейминг и зависимости
+
+- Имена Form-классов задавать по предметной области и сценарию: `TariffForm`, `ProfileSettingsForm`, `SubscriptionForm`.
+- Namespace должен соответствовать физическому пути файла (`App\Livewire\Admin\Forms\...` или `App\Livewire\Site\Forms\...`).
+- Livewire-компонент должен импортировать Form из своего контекста (Admin или Site).
+
+## Архитектурные границы
+
+- Form-класс отвечает за поля формы, валидацию и сбор DTO.
+- Бизнес-операции выполнять через Action-классы, а не внутри компонентов.
+- Для передачи данных между Form и Action использовать DTO (`spatie/laravel-data`).
