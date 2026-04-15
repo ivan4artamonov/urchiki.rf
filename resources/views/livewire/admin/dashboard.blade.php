@@ -1,3 +1,3 @@
 <div>
-	<h1 class="text-2xl font-semibold text-heading">Панель</h1>
+	<x-admin.page-title>Панель</x-admin.page-title>
 </div>

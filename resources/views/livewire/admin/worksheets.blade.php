@@ -1,3 +1,3 @@
 <div>
-	<h1 class="text-2xl font-semibold text-heading">Рабочие листы</h1>
+	<x-admin.page-title>Рабочие листы</x-admin.page-title>
 </div>

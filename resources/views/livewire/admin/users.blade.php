@@ -1,5 +1,5 @@
 <div>
-	<h1 class="text-2xl font-semibold text-heading mb-6">Пользователи</h1>
+	<x-admin.page-title>Пользователи</x-admin.page-title>
 
 	<x-admin.table>
 		<x-admin.table.head>
