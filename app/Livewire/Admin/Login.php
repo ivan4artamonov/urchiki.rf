@@ -18,17 +18,20 @@ class Login extends Component
 
 	public function mount(): void
 	{
-		if (Auth::check()) {
+		if (Auth::check() && Auth::user()?->is_admin) {
 			$this->redirectRoute('admin.dashboard', navigate: true);
 		}
 	}
 
 	public function authenticate(): void
 	{
-		$credentials = $this->validate();
+		$credentials = [
+			...$this->validate(),
+			'is_admin' => true,
+		];
 
 		if (! Auth::attempt($credentials, $this->remember)) {
-			$this->addError('email', 'Неверный email или пароль.');
+			$this->addError('email', 'Неверный email, пароль или нет доступа к админке.');
 
 			return;
 		}

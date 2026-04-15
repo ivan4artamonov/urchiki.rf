@@ -19,7 +19,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 		Route::get('/login', Login::class)->name('login');
 	});
 
-	Route::middleware('auth')->group(function () {
+	Route::middleware(['auth', 'admin'])->group(function () {
 		Route::get('/', Dashboard::class)->name('dashboard');
 		Route::get('/worksheets', Worksheets::class)->name('worksheets');
 		Route::get('/users', Users::class)->name('users');

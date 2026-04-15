@@ -19,11 +19,12 @@ use Illuminate\Notifications\Notifiable;
  * @property string $email Уникальный адрес электронной почты.
  * @property Carbon|null $email_verified_at Момент подтверждения email; null — если не подтверждён.
  * @property string|null $password Хэш пароля; null — если пароль не задан.
+ * @property bool $is_admin Флаг администратора для входа в админку.
  * @property string|null $remember_token Токен опции «запомнить меня».
  * @property Carbon|null $created_at Дата и время создания записи.
  * @property Carbon|null $updated_at Дата и время последнего обновления записи.
  */
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'is_admin'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -40,6 +41,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+			'is_admin' => 'boolean',
         ];
     }
 }
