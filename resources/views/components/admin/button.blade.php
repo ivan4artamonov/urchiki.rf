@@ -18,7 +18,7 @@
 		default => 'px-3 py-2',
 	};
 	$variantClasses = match ($variant) {
-		'secondary' => 'border',
+		'secondary' => 'border border-slate-300 text-slate-700 hover:bg-slate-100 hover:border-slate-400',
 		default => 'bg-blue-600 text-white shadow-lg shadow-blue-500/40 hover:bg-blue-700 hover:shadow-blue-600/40',
 	};
 @endphp
