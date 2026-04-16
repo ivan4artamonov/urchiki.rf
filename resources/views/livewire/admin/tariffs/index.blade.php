@@ -14,7 +14,7 @@
 			<x-admin.table>
 				<x-admin.table.head>
 					<tr>
-						<x-admin.table.header class="w-px"></x-admin.table.header>
+						<x-admin.table.compact-header />
 						<x-admin.table.header>Название</x-admin.table.header>
 						<x-admin.table.header>Срок (дни)</x-admin.table.header>
 						<x-admin.table.header>Лимит скачиваний</x-admin.table.header>
@@ -28,9 +28,7 @@
 				>
 					@forelse ($activeTariffs as $tariff)
 						<x-admin.table.row x-sort:item="{{ $tariff->id }}" data-tariff-id="{{ $tariff->id }}">
-							<x-admin.table.cell class="w-px whitespace-nowrap">
-								<x-admin.drag-handle-button />
-							</x-admin.table.cell>
+							<x-admin.table.drag-handle-cell />
 							<x-admin.table.cell>{{ $tariff->name }}</x-admin.table.cell>
 							<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->duration_days }}</x-admin.table.cell>
 							<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->downloads_limit }}</x-admin.table.cell>
@@ -53,7 +51,7 @@
 				<x-admin.table>
 					<x-admin.table.head>
 						<tr>
-							<x-admin.table.header class="w-px"></x-admin.table.header>
+							<x-admin.table.compact-header />
 							<x-admin.table.header>Название</x-admin.table.header>
 							<x-admin.table.header>Срок (дни)</x-admin.table.header>
 							<x-admin.table.header>Лимит скачиваний</x-admin.table.header>
@@ -67,9 +65,7 @@
 					>
 						@foreach ($archivedTariffs as $tariff)
 							<x-admin.table.row x-sort:item="{{ $tariff->id }}" data-tariff-id="{{ $tariff->id }}">
-								<x-admin.table.cell class="w-px whitespace-nowrap">
-									<x-admin.drag-handle-button />
-								</x-admin.table.cell>
+								<x-admin.table.drag-handle-cell />
 								<x-admin.table.cell>{{ $tariff->name }}</x-admin.table.cell>
 								<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->duration_days }}</x-admin.table.cell>
 								<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->downloads_limit }}</x-admin.table.cell>
