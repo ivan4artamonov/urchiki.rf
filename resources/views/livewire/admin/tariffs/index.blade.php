@@ -2,9 +2,9 @@
 	<div class="mb-6 flex items-center justify-between gap-4">
 		<x-admin.page-title margin="mb-0">Тарифы</x-admin.page-title>
 
-		<x-admin.button-link href="{{ route('admin.tariffs.create') }}" variant="secondary">
+		<x-admin.button link href="{{ route('admin.tariffs.create') }}" variant="secondary">
 			Создать тариф
-		</x-admin.button-link>
+		</x-admin.button>
 	</div>
 
 	<div class="space-y-8">
@@ -35,9 +35,9 @@
 							<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->price }}</x-admin.table.cell>
 							<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->is_featured ? 'Да' : 'Нет' }}</x-admin.table.cell>
 							<x-admin.table.cell class="w-px whitespace-nowrap">
-								<x-admin.button-link href="{{ route('admin.tariffs.edit', $tariff) }}" variant="secondary" size="sm">
+								<x-admin.button link href="{{ route('admin.tariffs.edit', $tariff) }}" variant="secondary" size="sm">
 									<x-admin.icon name="pen" />
-								</x-admin.button-link>
+								</x-admin.button>
 							</x-admin.table.cell>
 						</x-admin.table.row>
 					@empty
@@ -77,9 +77,9 @@
 								<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->price }}</x-admin.table.cell>
 								<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->is_featured ? 'Да' : 'Нет' }}</x-admin.table.cell>
 								<x-admin.table.cell class="w-px whitespace-nowrap">
-									<x-admin.button-link href="{{ route('admin.tariffs.edit', $tariff) }}" variant="secondary" size="sm">
+									<x-admin.button link href="{{ route('admin.tariffs.edit', $tariff) }}" variant="secondary" size="sm">
 										<x-admin.icon name="pen" />
-									</x-admin.button-link>
+									</x-admin.button>
 								</x-admin.table.cell>
 							</x-admin.table.row>
 						@endforeach

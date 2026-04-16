@@ -1,11 +1,18 @@
 @props([
+	'button' => false,
+	'link' => false,
+	'href' => '#',
 	'type' => 'button',
 	'variant' => 'primary',
 	'size' => 'md',
 ])
 
 @php
-	$baseClasses = 'rounded transition cursor-pointer';
+	$isLink = $link === true;
+	$baseClasses = match ($isLink) {
+		true => 'inline-flex items-center rounded transition cursor-pointer',
+		default => 'rounded transition cursor-pointer',
+	};
 	$sizeClasses = match ($size) {
 		'sm' => 'px-2 py-1 text-sm',
 		default => 'px-3 py-2',
@@ -16,6 +23,16 @@
 	};
 @endphp
 
-<button {{ $attributes->merge(['type' => $type, 'class' => "{$baseClasses} {$sizeClasses} {$variantClasses}"]) }}>
-	{{ $slot }}
-</button>
+@if ($isLink)
+	<a
+		href="{{ $href }}"
+		wire:navigate
+		{{ $attributes->merge(['class' => "{$baseClasses} {$sizeClasses} {$variantClasses}"]) }}
+	>
+		{{ $slot }}
+	</a>
+@else
+	<button {{ $attributes->merge(['type' => $type, 'class' => "{$baseClasses} {$sizeClasses} {$variantClasses}"]) }}>
+		{{ $slot }}
+	</button>
+@endif
