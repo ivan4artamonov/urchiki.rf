@@ -5,6 +5,7 @@ use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\Faq;
 use App\Livewire\Admin\Login;
 use App\Livewire\Admin\Tariffs\Create;
+use App\Livewire\Admin\Tariffs\Edit;
 use App\Livewire\Admin\Tariffs\Index;
 use App\Livewire\Admin\Users;
 use App\Livewire\Admin\Worksheets;
@@ -29,6 +30,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 		Route::prefix('tariffs')->name('tariffs.')->group(function () {
 			Route::get('/', Index::class)->name('index');
 			Route::get('/create', Create::class)->name('create');
+			Route::get('/{tariff}/edit', Edit::class)->name('edit');
 		});
 
 		Route::post('/logout', LogoutController::class)->name('logout');

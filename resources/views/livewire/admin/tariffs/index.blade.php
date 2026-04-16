@@ -20,6 +20,7 @@
 						<x-admin.table.header>Лимит скачиваний</x-admin.table.header>
 						<x-admin.table.header>Цена (руб.)</x-admin.table.header>
 						<x-admin.table.header>Акцентный</x-admin.table.header>
+						<x-admin.table.compact-header />
 					</tr>
 				</x-admin.table.head>
 				<x-admin.table.body
@@ -33,10 +34,15 @@
 							<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->downloads_limit }}</x-admin.table.cell>
 							<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->price }}</x-admin.table.cell>
 							<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->is_featured ? 'Да' : 'Нет' }}</x-admin.table.cell>
+							<x-admin.table.cell class="w-px whitespace-nowrap">
+								<x-admin.button-link href="{{ route('admin.tariffs.edit', $tariff) }}" variant="secondary" size="sm">
+									<x-admin.icon name="pen" />
+								</x-admin.button-link>
+							</x-admin.table.cell>
 						</x-admin.table.row>
 					@empty
 						<x-admin.table.row>
-							<x-admin.table.cell :colspan="6" class="py-8 text-center text-body">Активных тарифов пока нет.</x-admin.table.cell>
+							<x-admin.table.cell :colspan="7" class="py-8 text-center text-body">Активных тарифов пока нет.</x-admin.table.cell>
 						</x-admin.table.row>
 					@endforelse
 				</x-admin.table.body>
@@ -56,6 +62,7 @@
 							<x-admin.table.header>Лимит скачиваний</x-admin.table.header>
 							<x-admin.table.header>Цена (руб.)</x-admin.table.header>
 							<x-admin.table.header>Акцентный</x-admin.table.header>
+							<x-admin.table.compact-header />
 						</tr>
 					</x-admin.table.head>
 					<x-admin.table.body
@@ -69,6 +76,11 @@
 								<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->downloads_limit }}</x-admin.table.cell>
 								<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->price }}</x-admin.table.cell>
 								<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->is_featured ? 'Да' : 'Нет' }}</x-admin.table.cell>
+								<x-admin.table.cell class="w-px whitespace-nowrap">
+									<x-admin.button-link href="{{ route('admin.tariffs.edit', $tariff) }}" variant="secondary" size="sm">
+										<x-admin.icon name="pen" />
+									</x-admin.button-link>
+								</x-admin.table.cell>
 							</x-admin.table.row>
 						@endforeach
 					</x-admin.table.body>
