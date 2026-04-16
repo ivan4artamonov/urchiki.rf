@@ -1,0 +1,18 @@
+---
+description: Структура feature-тестов по точке входа и контексту
+alwaysApply: true
+---
+
+# Структура Feature-тестов
+
+- Feature-тесты раскладывать по точке входа: `Console` и `Web`.
+- Для веб-тестов использовать разделение по контексту: `Web/Admin` и `Web/Site`.
+- Внутри `Admin` и `Site` группировать тесты по смысловым разделам домена (`Auth`, `Users`, `Tariffs`, `Billing` и т.д.).
+- Новые feature-тесты не размещать напрямую в корне `tests/Feature`.
+
+## Примеры
+
+- `tests/Feature/Console/Users/CreateUserCommandTest.php`
+- `tests/Feature/Web/Admin/Auth/AccessTest.php`
+- `tests/Feature/Web/Admin/Tariffs/TariffCreateFormTest.php`
+- `tests/Feature/Web/Admin/Users/UsersListTest.php`
