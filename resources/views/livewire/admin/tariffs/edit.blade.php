@@ -33,7 +33,7 @@
 				<div>
 					<x-admin.input
 						id="duration_days"
-						label="Длительность (дней)"
+						label="Длительность, дни"
 						type="number"
 						wire:model="form.durationDays"
 						min="1"
@@ -57,7 +57,7 @@
 				<div>
 					<x-admin.input
 						id="price"
-						label="Цена (руб.)"
+						label="Цена, ₽"
 						type="number"
 						wire:model="form.price"
 						min="0"

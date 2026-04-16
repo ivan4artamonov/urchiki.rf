@@ -17,9 +17,9 @@
 					<tr>
 						<x-admin.table.compact-header />
 						<x-admin.table.header>Название</x-admin.table.header>
-						<x-admin.table.header>Срок (дни)</x-admin.table.header>
+						<x-admin.table.header>Срок, дни</x-admin.table.header>
 						<x-admin.table.header>Лимит скачиваний</x-admin.table.header>
-						<x-admin.table.header>Цена (руб.)</x-admin.table.header>
+						<x-admin.table.header>Цена, ₽</x-admin.table.header>
 						<x-admin.table.header>Акцентный</x-admin.table.header>
 						<x-admin.table.compact-header />
 					</tr>
@@ -59,9 +59,9 @@
 						<tr>
 							<x-admin.table.compact-header />
 							<x-admin.table.header>Название</x-admin.table.header>
-							<x-admin.table.header>Срок (дни)</x-admin.table.header>
+							<x-admin.table.header>Срок, дни</x-admin.table.header>
 							<x-admin.table.header>Лимит скачиваний</x-admin.table.header>
-							<x-admin.table.header>Цена (руб.)</x-admin.table.header>
+							<x-admin.table.header>Цена, ₽</x-admin.table.header>
 							<x-admin.table.header>Акцентный</x-admin.table.header>
 							<x-admin.table.compact-header />
 						</tr>
