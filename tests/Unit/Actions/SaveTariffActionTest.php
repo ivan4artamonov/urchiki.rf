@@ -69,3 +69,51 @@ test('action обновляет существующий тариф из dto', f
 
 	expect(Tariff::query()->count())->toBe(1);
 });
+
+test('action отправляет тариф в конец новой группы при смене активности', function (): void {
+	$action = app(SaveTariffAction::class);
+
+	$activeFirst = Tariff::factory()->create([
+		'name' => 'Активный 1',
+		'is_active' => true,
+	]);
+	$activeSecond = Tariff::factory()->create([
+		'name' => 'Активный 2',
+		'is_active' => true,
+	]);
+	$archivedFirst = Tariff::factory()->inactive()->create([
+		'name' => 'Архивный 1',
+	]);
+
+	$data = TariffData::from([
+		'name' => $activeSecond->name,
+		'description' => $activeSecond->description,
+		'durationDays' => $activeSecond->duration_days,
+		'downloadsLimit' => $activeSecond->downloads_limit,
+		'price' => $activeSecond->price,
+		'isActive' => false,
+		'isFeatured' => $activeSecond->is_featured,
+	]);
+
+	$updatedTariff = $action->handle($data, $activeSecond);
+
+	$activePositions = Tariff::query()
+		->active()
+		->ordered()
+		->pluck('position', 'name')
+		->all();
+	$archivedPositions = Tariff::query()
+		->archived()
+		->ordered()
+		->pluck('position', 'name')
+		->all();
+
+	expect($updatedTariff->is_active)->toBeFalse()
+		->and($activePositions)->toBe([
+			$activeFirst->name => 0,
+		])
+		->and($archivedPositions)->toBe([
+			$archivedFirst->name => 0,
+			$activeSecond->name => 1,
+		]);
+});

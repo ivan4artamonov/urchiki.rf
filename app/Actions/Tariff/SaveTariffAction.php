@@ -18,7 +18,13 @@ class SaveTariffAction
 		$attributes = $data->toModelAttributes();
 
 		if ($tariff instanceof Tariff) {
+			$groupChanged = $tariff->is_active !== $attributes['is_active'];
+
 			$tariff->update($attributes);
+
+			if ($groupChanged) {
+				$tariff->move(-1);
+			}
 
 			return $tariff->refresh();
 		}

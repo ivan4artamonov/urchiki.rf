@@ -23,6 +23,6 @@ class UpdateModelPositionAction
 			return;
 		}
 
-		$model->move($position + 1);
+		$model->move($position);
 	}
 }
