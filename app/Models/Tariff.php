@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\EloquentSortable\Sortable;
-use Spatie\EloquentSortable\SortableTrait;
+use Nevadskiy\Position\HasPosition;
+use Nevadskiy\Position\PositionObserver;
+use Nevadskiy\Position\PositioningScope;
 
 /**
  * Тариф подписки с длительностью, стоимостью и лимитом скачиваний.
@@ -21,34 +22,27 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property int $price Стоимость (целое число, в рублях).
  * @property bool $is_active Признак доступности тарифа для покупки.
  * @property bool $is_featured Признак акцентного тарифа в списке.
- * @property int $sort_order Порядок отображения в витрине.
+ * @property int $position Порядок отображения в витрине.
  * @method static Builder<self> ordered() Получить тарифы в порядке отображения.
  */
-class Tariff extends Model implements Sortable
+class Tariff extends Model
 {
-	use HasFactory, SortableTrait;
+	use HasFactory, HasPosition;
 
 	/**
-	 * Настройки автоматической сортировки записей в рамках модели.
-	 *
-	 * @var array<string, bool|string>
+	 * Инициализирует позиционирование без рекурсивной регистрации observer.
 	 */
-	public array $sortable = [
-		'order_column_name' => 'sort_order',
-		'sort_when_creating' => true,
-	];
-
-	/**
-	 * Базовый запрос для вычисления позиции сортировки.
-	 *
-	 * Разделяет sort_order на независимые группы:
-	 * активные и архивные тарифы.
-	 *
-	 * @return Builder<self>
-	 */
-	public function buildSortQuery(): Builder
+	protected static function bootHasPosition(): void
 	{
-		return static::query()->active($this->is_active);
+		static::addGlobalScope(new PositioningScope());
+	}
+
+	/**
+	 * Регистрирует observer после завершения boot модели.
+	 */
+	protected static function booted(): void
+	{
+		static::observe(PositionObserver::class);
 	}
 
 	/**
@@ -87,7 +81,7 @@ class Tariff extends Model implements Sortable
 		'price',
 		'is_active',
 		'is_featured',
-		'sort_order',
+		'position',
 	];
 
 	/**
@@ -101,8 +95,18 @@ class Tariff extends Model implements Sortable
 		'price' => 'integer',
 		'is_active' => 'boolean',
 		'is_featured' => 'boolean',
-		'sort_order' => 'integer',
+		'position' => 'integer',
 	];
+
+	/**
+	 * Группировать позиции по флагу активности.
+	 *
+	 * @return list<string>
+	 */
+	public function groupPositionBy(): array
+	{
+		return ['is_active'];
+	}
 
 	/**
 	 * Scope для получения тарифов в порядке отображения.
@@ -113,7 +117,7 @@ class Tariff extends Model implements Sortable
 	public function scopeOrdered(Builder $query): Builder
 	{
 		return $query
-			->orderBy('sort_order')
+			->orderByPosition()
 			->orderBy('id');
 	}
 }
