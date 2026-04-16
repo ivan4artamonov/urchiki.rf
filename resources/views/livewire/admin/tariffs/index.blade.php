@@ -3,6 +3,7 @@
 		<x-admin.page-title margin="mb-0">Тарифы</x-admin.page-title>
 
 		<x-admin.button link href="{{ route('admin.tariffs.create') }}" variant="secondary">
+			<x-admin.icon name="plus" class="mr-2" />
 			Создать тариф
 		</x-admin.button>
 	</div>

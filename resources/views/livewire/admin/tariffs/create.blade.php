@@ -3,6 +3,7 @@
 		<x-admin.page-title margin="mb-0">Создание тарифа</x-admin.page-title>
 
 		<x-admin.button link href="{{ route('admin.tariffs.index') }}" variant="secondary">
+			<x-admin.icon name="chevron-left" class="mr-2" />
 			К списку тарифов
 		</x-admin.button>
 	</div>
