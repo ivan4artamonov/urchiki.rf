@@ -1,0 +1,20 @@
+---
+description: Структура unit-тестов по типам объектов
+alwaysApply: true
+---
+
+# Структура Unit-тестов
+
+- Unit-тесты раскладывать по папкам в `tests/Unit` по типу тестируемого объекта.
+- Для папок использовать множественное число там, где это уместно: `Actions`, `Data`, `Models`, `Seeders`.
+- Использовать нейминг по аналогии со структурой `app` и `database`.
+- Для DTO и data-объектов использовать папку `Data` (не `DTO`).
+- Новые unit-тесты не размещать напрямую в корне `tests/Unit`.
+- Имена тестовых файлов сохранять в формате `<Entity><Type>Test.php` в соответствующей папке.
+
+## Примеры
+
+- `tests/Unit/Actions/SaveTariffActionTest.php`
+- `tests/Unit/Data/TariffDataTest.php`
+- `tests/Unit/Models/TariffTest.php`
+- `tests/Unit/Seeders/GradeSeederTest.php`
