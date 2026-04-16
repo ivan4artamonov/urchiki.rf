@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9eedd92b0e4d70272241690adbb8ef80",
+    "content-hash": "4200a7dd52ce251d3099b7ec05929555",
     "packages": [
         {
             "name": "brick/math",
@@ -2515,6 +2515,62 @@
             "time": "2026-02-13T03:05:33+00:00"
         },
         {
+            "name": "nevadskiy/laravel-position",
+            "version": "0.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xalaida/laravel-position.git",
+                "reference": "6d6e178481a6b78bee9d77b5ae208b3a78a43281"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xalaida/laravel-position/zipball/6d6e178481a6b78bee9d77b5ae208b3a78a43281",
+                "reference": "6d6e178481a6b78bee9d77b5ae208b3a78a43281",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=7.0",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "orchestra/testbench": ">=5.0",
+                "phpunit/phpunit": "^8.0|^9.0|^10.5|^11.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nevadskiy\\Position\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nevadskiy",
+                    "email": "nevadskiy@gmail.com"
+                }
+            ],
+            "description": "Arrange Laravel models in a given order.",
+            "homepage": "https://github.com/nevadskiy/laravel-position",
+            "keywords": [
+                "arrange",
+                "eloquent",
+                "laravel",
+                "model",
+                "order",
+                "position",
+                "sort"
+            ],
+            "support": {
+                "issues": "https://github.com/xalaida/laravel-position/issues",
+                "source": "https://github.com/xalaida/laravel-position/tree/0.10.0"
+            },
+            "time": "2025-04-23T20:04:44+00:00"
+        },
+        {
             "name": "nikic/php-parser",
             "version": "v5.7.0",
             "source": {
@@ -3716,80 +3772,6 @@
                 "source": "https://github.com/ramsey/uuid/tree/4.9.2"
             },
             "time": "2025-12-14T04:43:48+00:00"
-        },
-        {
-            "name": "spatie/eloquent-sortable",
-            "version": "5.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/eloquent-sortable.git",
-                "reference": "caf2596e5df0260d0e2863e89b750611eef2fc59"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/eloquent-sortable/zipball/caf2596e5df0260d0e2863e89b750611eef2fc59",
-                "reference": "caf2596e5df0260d0e2863e89b750611eef2fc59",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "^10.0|^11.0|^12.0|^13.0",
-                "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
-                "nesbot/carbon": "^2.63|^3.0",
-                "php": "^8.2",
-                "spatie/laravel-package-tools": "^1.9"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^8.0|^9.6|^10.0|^11.0",
-                "phpunit/phpunit": "^10.0|^11.5.3|^12.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Spatie\\EloquentSortable\\EloquentSortableServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\EloquentSortable\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be"
-                }
-            ],
-            "description": "Sortable behaviour for eloquent models",
-            "homepage": "https://github.com/spatie/eloquent-sortable",
-            "keywords": [
-                "behaviour",
-                "eloquent",
-                "laravel",
-                "model",
-                "sort",
-                "sortable"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/eloquent-sortable/issues",
-                "source": "https://github.com/spatie/eloquent-sortable/tree/5.0.1"
-            },
-            "funding": [
-                {
-                    "url": "https://spatie.be/open-source/support-us",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-02-21T21:26:43+00:00"
         },
         {
             "name": "spatie/laravel-data",
