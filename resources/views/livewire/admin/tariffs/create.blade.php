@@ -1,6 +1,6 @@
 <div>
 	<div class="mb-6 flex items-center justify-between gap-4">
-		<x-admin.page-title class="mb-0">Создание тарифа</x-admin.page-title>
+		<x-admin.page-title margin="mb-0">Создание тарифа</x-admin.page-title>
 
 		<x-admin.button-link href="{{ route('admin.tariffs.index') }}" variant="secondary">
 			К списку тарифов
