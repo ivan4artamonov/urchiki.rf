@@ -41,7 +41,6 @@ class TariffFactory extends Factory
 			'price' => $price,
 			'is_active' => true,
 			'is_featured' => false,
-			'position' => fake()->numberBetween(1, 100),
 		];
 	}
 
