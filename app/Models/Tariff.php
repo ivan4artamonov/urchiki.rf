@@ -39,6 +39,42 @@ class Tariff extends Model implements Sortable
 	];
 
 	/**
+	 * Базовый запрос для вычисления позиции сортировки.
+	 *
+	 * Разделяет sort_order на независимые группы:
+	 * активные и архивные тарифы.
+	 *
+	 * @return Builder<self>
+	 */
+	public function buildSortQuery(): Builder
+	{
+		return static::query()->active($this->is_active);
+	}
+
+	/**
+	 * Scope для фильтрации тарифов по флагу активности.
+	 *
+	 * @param Builder<Tariff> $query Базовый запрос к модели тарифов.
+	 * @param bool $isActive Флаг активности тарифа.
+	 * @return Builder<Tariff>
+	 */
+	public function scopeActive(Builder $query, bool $isActive = true): Builder
+	{
+		return $query->where('is_active', $isActive);
+	}
+
+	/**
+	 * Scope для получения архивных тарифов.
+	 *
+	 * @param Builder<Tariff> $query Базовый запрос к модели тарифов.
+	 * @return Builder<Tariff>
+	 */
+	public function scopeArchived(Builder $query): Builder
+	{
+		return $query->active(false);
+	}
+
+	/**
 	 * Разрешённые для массового присваивания атрибуты.
 	 *
 	 * @var list<string>
