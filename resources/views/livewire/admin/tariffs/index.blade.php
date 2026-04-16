@@ -23,11 +23,10 @@
 					</tr>
 				</x-admin.table.head>
 				<x-admin.table.body
-					x-data="sortableByNeighbors($wire, 'reorderActiveTariff')"
-					x-sort="reorder($item)"
+					x-sort="$wire.moveTariff($item, $position)"
 				>
 					@forelse ($activeTariffs as $tariff)
-						<x-admin.table.row x-sort:item="{{ $tariff->id }}" data-tariff-id="{{ $tariff->id }}">
+						<x-admin.table.row wire:key="active-tariff-{{ $tariff->id }}" x-sort:item="{{ $tariff->id }}" data-tariff-id="{{ $tariff->id }}">
 							<x-admin.table.drag-handle-cell />
 							<x-admin.table.cell>{{ $tariff->name }}</x-admin.table.cell>
 							<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->duration_days }}</x-admin.table.cell>
@@ -60,11 +59,10 @@
 						</tr>
 					</x-admin.table.head>
 					<x-admin.table.body
-						x-data="sortableByNeighbors($wire, 'reorderArchivedTariff')"
-						x-sort="reorder($item)"
+						x-sort="$wire.moveTariff($item, $position)"
 					>
 						@foreach ($archivedTariffs as $tariff)
-							<x-admin.table.row x-sort:item="{{ $tariff->id }}" data-tariff-id="{{ $tariff->id }}">
+							<x-admin.table.row wire:key="archived-tariff-{{ $tariff->id }}" x-sort:item="{{ $tariff->id }}" data-tariff-id="{{ $tariff->id }}">
 								<x-admin.table.drag-handle-cell />
 								<x-admin.table.cell>{{ $tariff->name }}</x-admin.table.cell>
 								<x-admin.table.cell class="whitespace-nowrap">{{ $tariff->duration_days }}</x-admin.table.cell>
