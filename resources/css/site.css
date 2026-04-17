@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+@import 'flowbite/src/themes/default';
+@plugin "flowbite/plugin";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../views/site.blade.php';
+@source '../views/components/site/**/*.blade.php';
+@source '../views/livewire/site/**/*.blade.php';
+@source '../js/site.js';
+@source '../../node_modules/flowbite';
+
+@theme {
+	--font-sans: 'Golos Text', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+		'Segoe UI Symbol', 'Noto Color Emoji';
+
+	--font-site-heading: 'Merriweather', ui-serif, Georgia, serif;
+
+	--color-urchiki-accent: #b84030;
+	--color-urchiki-accent-hover: #d06a58;
+	--color-urchiki-accent-light: #f5e3e0;
+	--color-urchiki-bg: #fafaf7;
+	--color-urchiki-surface: #f2f1ec;
+	--color-urchiki-card: #ffffff;
+	--color-urchiki-border: #e0ded8;
+	--color-urchiki-text: #1a1a1a;
+	--color-urchiki-text-sec: #5c5c5c;
+	--color-urchiki-muted: #8a8a8a;
+}

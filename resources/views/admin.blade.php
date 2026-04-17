@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Админцентр: {{ $adminSectionTitle ?? 'вход' }}</title>
 		<link rel="icon" type="image/svg+xml" href="{{ asset('i/favicon.svg') }}">
-		@vite(['resources/css/app.css', 'resources/js/app.js'])
+		@vite(['resources/css/admin.css', 'resources/js/admin.js'])
 		@livewireStyles
 	</head>
 	<body class="min-h-screen bg-neutral-secondary-soft">
@@ -24,7 +24,7 @@
 						</a>
 						<button type="button" class="flex cursor-pointer rounded-full bg-neutral-primary text-sm md:me-0 focus:ring-4 focus:ring-neutral-tertiary" id="admin-user-menu-button" data-dropdown-toggle="admin-user-dropdown" data-dropdown-placement="bottom">
 							<span class="sr-only">Открыть меню пользователя</span>
-							<span class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-tertiary text-sm font-medium text-heading">{{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr(auth()->user()->name ?: auth()->user()->email, 0, 1)) }}</span>
+							<span class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-tertiary text-sm font-medium text-heading">{{ auth()->user()->initial }}</span>
 						</button>
 						<div class="z-50 hidden w-44 overflow-hidden rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg" id="admin-user-dropdown">
 							<a href="{{ route('admin.users.edit', auth()->user()) }}" class="block border-b border-default px-4 py-3 text-sm hover:bg-neutral-secondary-soft">
