@@ -4,9 +4,9 @@
 ])
 
 @php
-	$base = 'block rounded px-3 py-2 md:border-0 md:p-0';
-	$inactiveClasses = 'text-heading hover:bg-neutral-tertiary md:hover:bg-transparent md:hover:text-fg-brand';
-	$activeClasses = 'bg-brand text-white md:bg-transparent md:text-fg-brand';
+	$base = 'block rounded px-3 py-2 text-sm font-medium text-body transition hover:text-heading md:border-0 md:p-0';
+	$inactiveClasses = 'hover:bg-neutral-tertiary md:hover:bg-transparent';
+	$activeClasses = 'text-heading md:text-heading';
 	$linkClass = $base.' '.($active ? $activeClasses : $inactiveClasses);
 @endphp
 

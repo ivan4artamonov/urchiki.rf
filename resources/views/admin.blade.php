@@ -15,6 +15,12 @@
 				</a>
 				@auth
 					<div class="flex items-center space-x-3 md:order-2 rtl:space-x-reverse md:space-x-0">
+						<a href="{{ url('/') }}" target="_blank" rel="noopener noreferrer" class="me-3 inline-flex items-center gap-1 text-sm font-medium text-body transition hover:text-heading md:me-4">
+							<span>Сайт</span>
+							<svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.5 3H17v5.5m0-5.5-7 7M8.5 5H6a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-2.5"/>
+							</svg>
+						</a>
 						<button type="button" class="flex cursor-pointer rounded-full bg-neutral-primary text-sm md:me-0 focus:ring-4 focus:ring-neutral-tertiary" id="admin-user-menu-button" data-dropdown-toggle="admin-user-dropdown" data-dropdown-placement="bottom">
 							<span class="sr-only">Открыть меню пользователя</span>
 							<span class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-tertiary text-sm font-medium text-heading">{{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr(auth()->user()->name ?: auth()->user()->email, 0, 1)) }}</span>
