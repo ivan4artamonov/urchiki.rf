@@ -7,7 +7,9 @@ use App\Livewire\Admin\Login;
 use App\Livewire\Admin\Tariffs\Create;
 use App\Livewire\Admin\Tariffs\Edit;
 use App\Livewire\Admin\Tariffs\Index;
-use App\Livewire\Admin\Users;
+use App\Livewire\Admin\Users\Create as UsersCreate;
+use App\Livewire\Admin\Users\Edit as UsersEdit;
+use App\Livewire\Admin\Users\Index as UsersIndex;
 use App\Livewire\Admin\Worksheets;
 use App\Livewire\Site\Home;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +26,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 	Route::middleware(['auth', 'admin'])->group(function () {
 		Route::get('/', Dashboard::class)->name('dashboard');
 		Route::get('/worksheets', Worksheets::class)->name('worksheets');
-		Route::get('/users', Users::class)->name('users');
+		Route::prefix('users')->name('users.')->group(function () {
+			Route::get('/', UsersIndex::class)->name('index');
+			Route::get('/create', UsersCreate::class)->name('create');
+			Route::get('/{user}/edit', UsersEdit::class)->name('edit');
+		});
 		Route::get('/faq', Faq::class)->name('faq');
 
 		Route::prefix('tariffs')->name('tariffs.')->group(function () {
