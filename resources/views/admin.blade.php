@@ -15,18 +15,16 @@
 				</a>
 				@auth
 					<div class="flex items-center space-x-3 md:order-2 rtl:space-x-reverse md:space-x-0">
-						<button type="button" class="flex rounded-full bg-neutral-primary text-sm md:me-0 focus:ring-4 focus:ring-neutral-tertiary" id="admin-user-menu-button" data-dropdown-toggle="admin-user-dropdown" data-dropdown-placement="bottom">
+						<button type="button" class="flex cursor-pointer rounded-full bg-neutral-primary text-sm md:me-0 focus:ring-4 focus:ring-neutral-tertiary" id="admin-user-menu-button" data-dropdown-toggle="admin-user-dropdown" data-dropdown-placement="bottom">
 							<span class="sr-only">Открыть меню пользователя</span>
 							<span class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-tertiary text-sm font-medium text-heading">{{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr(auth()->user()->name ?: auth()->user()->email, 0, 1)) }}</span>
 						</button>
-						<div class="z-50 hidden w-44 rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg" id="admin-user-dropdown">
-							<div class="border-b border-default px-4 py-3 text-sm">
+						<div class="z-50 hidden w-44 overflow-hidden rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg" id="admin-user-dropdown">
+							<a href="{{ route('admin.users.edit', auth()->user()) }}" class="block border-b border-default px-4 py-3 text-sm hover:bg-neutral-secondary-soft">
 								<span class="block font-medium text-heading">{{ auth()->user()->name }}</span>
 								<span class="block truncate text-body">{{ auth()->user()->email }}</span>
-							</div>
+							</a>
 							<ul class="p-2 text-sm font-medium text-body">
-								<x-admin.dropdown-item :href="route('admin.dashboard')">Панель</x-admin.dropdown-item>
-								<x-admin.dropdown-item href="#">Настройки</x-admin.dropdown-item>
 								<x-admin.dropdown-item :action="route('admin.logout')">Выйти</x-admin.dropdown-item>
 							</ul>
 						</div>
