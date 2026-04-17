@@ -55,6 +55,8 @@
 		</nav>
 		<main class="pt-20 pb-10">
 			<div class="mx-auto max-w-screen-xl px-4 py-6">
+				<x-admin.notification />
+
 				{{ $slot }}
 			</div>
 		</main>

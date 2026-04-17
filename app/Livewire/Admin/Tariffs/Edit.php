@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Tariffs;
 
 use App\Livewire\Admin\Forms\TariffForm;
 use App\Models\Tariff;
+use App\Support\Notification;
 use Livewire\Component;
 
 class Edit extends Component
@@ -19,7 +20,7 @@ class Edit extends Component
 	{
 		$this->form->save();
 
-		session()->flash('tariff-updated', 'Тариф успешно обновлен.');
+		Notification::success('Тариф успешно обновлен.');
 		$this->redirectRoute('admin.tariffs.index', navigate: true);
 	}
 

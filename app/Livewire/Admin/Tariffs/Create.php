@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Tariffs;
 
 use App\Livewire\Admin\Forms\TariffForm;
+use App\Support\Notification;
 use Livewire\Component;
 
 class Create extends Component
@@ -13,7 +14,7 @@ class Create extends Component
 	{
 		$this->form->save();
 
-		session()->flash('tariff-created', 'Тариф успешно создан.');
+		Notification::success('Тариф успешно создан.');
 		$this->redirectRoute('admin.tariffs.index', navigate: true);
 	}
 

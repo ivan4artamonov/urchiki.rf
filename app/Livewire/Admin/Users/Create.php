@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Users;
 
 use App\Livewire\Admin\Forms\UserForm;
+use App\Support\Notification;
 use Livewire\Component;
 
 class Create extends Component
@@ -13,7 +14,7 @@ class Create extends Component
 	{
 		$this->form->save();
 
-		session()->flash('user-created', 'Пользователь успешно создан.');
+		Notification::success('Пользователь успешно создан.');
 		$this->redirectRoute('admin.users.index', navigate: true);
 	}
 

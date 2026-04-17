@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Users;
 
 use App\Livewire\Admin\Forms\UserForm;
 use App\Models\User;
+use App\Support\Notification;
 use Livewire\Component;
 
 class Edit extends Component
@@ -19,7 +20,7 @@ class Edit extends Component
 	{
 		$this->form->save();
 
-		session()->flash('user-updated', 'Пользователь успешно обновлён.');
+		Notification::success('Пользователь успешно обновлён.');
 		$this->redirectRoute('admin.users.index', navigate: true);
 	}
 
