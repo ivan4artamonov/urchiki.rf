@@ -40,7 +40,7 @@
 							$adminNavItems = [
 								['label' => 'Рабочие листы', 'href' => route('admin.worksheets'), 'active' => request()->routeIs('admin.worksheets')],
 								['label' => 'Пользователи', 'href' => route('admin.users.index'), 'active' => request()->routeIs('admin.users*')],
-								['label' => 'ЧаВо', 'href' => route('admin.faq'), 'active' => request()->routeIs('admin.faq')],
+								['label' => 'ЧаВо', 'href' => route('admin.faq.index'), 'active' => request()->routeIs('admin.faq*')],
 								['label' => 'Тарифы', 'href' => route('admin.tariffs.index'), 'active' => request()->routeIs('admin.tariffs*')],
 							];
 						@endphp

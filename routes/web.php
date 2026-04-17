@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Admin\LogoutController;
 use App\Livewire\Admin\Dashboard;
-use App\Livewire\Admin\Faq;
+use App\Livewire\Admin\Faq\Create as FaqCreate;
+use App\Livewire\Admin\Faq\Edit as FaqEdit;
+use App\Livewire\Admin\Faq\Index as FaqIndex;
 use App\Livewire\Admin\Login;
-use App\Livewire\Admin\Tariffs\Create;
-use App\Livewire\Admin\Tariffs\Edit;
-use App\Livewire\Admin\Tariffs\Index;
+use App\Livewire\Admin\Tariffs\Create as TariffsCreate;
+use App\Livewire\Admin\Tariffs\Edit as TariffsEdit;
+use App\Livewire\Admin\Tariffs\Index as TariffsIndex;
 use App\Livewire\Admin\Users\Create as UsersCreate;
 use App\Livewire\Admin\Users\Edit as UsersEdit;
 use App\Livewire\Admin\Users\Index as UsersIndex;
@@ -31,12 +33,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
 			Route::get('/create', UsersCreate::class)->name('create');
 			Route::get('/{user}/edit', UsersEdit::class)->name('edit');
 		});
-		Route::get('/faq', Faq::class)->name('faq');
+		Route::prefix('faq')->name('faq.')->group(function () {
+			Route::get('/', FaqIndex::class)->name('index');
+			Route::get('/create', FaqCreate::class)->name('create');
+			Route::get('/{faqItem}/edit', FaqEdit::class)->name('edit');
+		});
 
 		Route::prefix('tariffs')->name('tariffs.')->group(function () {
-			Route::get('/', Index::class)->name('index');
-			Route::get('/create', Create::class)->name('create');
-			Route::get('/{tariff}/edit', Edit::class)->name('edit');
+			Route::get('/', TariffsIndex::class)->name('index');
+			Route::get('/create', TariffsCreate::class)->name('create');
+			Route::get('/{tariff}/edit', TariffsEdit::class)->name('edit');
 		});
 
 		Route::post('/logout', LogoutController::class)->name('logout');
