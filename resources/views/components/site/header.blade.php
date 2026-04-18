@@ -33,7 +33,7 @@
 					</button>
 					<div class="z-50 hidden w-48 rounded-xl border border-urchiki-border bg-urchiki-card py-1.5 shadow-lg" id="site-user-dropdown">
 						<x-site.user-menu-link :href="url('/account')">Личный кабинет</x-site.user-menu-link>
-						<form method="POST" action="{{ route('admin.logout') }}" class="m-0">
+						<form method="POST" action="{{ route('site.logout') }}" class="m-0">
 							@csrf
 							<x-site.user-menu-link :button="true">Выйти</x-site.user-menu-link>
 						</form>
