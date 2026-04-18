@@ -9,6 +9,7 @@
 		@livewireStyles
 	</head>
 	<body class="min-h-screen bg-neutral-secondary-soft">
+		@unless($hideAdminHeader ?? false)
 		<nav class="fixed start-0 top-0 z-20 w-full border-b border-default bg-neutral-primary">
 			<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4">
 				<a href="{{ auth()->check() ? route('admin.dashboard') : route('admin.login') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -65,7 +66,12 @@
 				@endauth
 			</div>
 		</nav>
-		<main class="pt-20 pb-10">
+		@endunless
+		<main @class([
+			'pb-10',
+			'pt-20' => !($hideAdminHeader ?? false),
+			'pt-6' => $hideAdminHeader ?? false,
+		])>
 			<div class="mx-auto max-w-screen-xl px-4 py-6">
 				<x-admin.notification />
 

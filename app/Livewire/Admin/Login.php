@@ -44,6 +44,9 @@ class Login extends Component
 	public function render()
 	{
 		return view('livewire.admin.login')
-			->layout('admin', ['adminSectionTitle' => 'вход']);
+			->layout('admin', [
+				'adminSectionTitle' => 'вход',
+				'hideAdminHeader' => true,
+			]);
 	}
 }
