@@ -15,11 +15,16 @@ use App\Livewire\Admin\Users\Edit as UsersEdit;
 use App\Livewire\Admin\Users\Index as UsersIndex;
 use App\Livewire\Admin\Worksheets;
 use App\Livewire\Site\Home;
+use App\Livewire\Site\SiteAuth;
 use Illuminate\Support\Facades\Route;
 
 Route::name('site.')->group(function () {
     Route::get('/', Home::class)->name('home');
     Route::post('/logout', SiteLogoutController::class)->middleware('auth')->name('logout');
+
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', SiteAuth::class)->name('login');
+    });
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
