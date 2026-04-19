@@ -16,6 +16,7 @@
 
 		<main id="site-content" class="flex flex-1 flex-col">
 			<x-site.page-container class="flex flex-1 flex-col py-8">
+				<x-site.notification />
 				{{ $slot }}
 			</x-site.page-container>
 		</main>

@@ -15,6 +15,7 @@ use App\Livewire\Admin\Users\Create as UsersCreate;
 use App\Livewire\Admin\Users\Edit as UsersEdit;
 use App\Livewire\Admin\Users\Index as UsersIndex;
 use App\Livewire\Admin\Worksheets;
+use App\Livewire\Site\Account\Profile as AccountProfile;
 use App\Livewire\Site\Home;
 use App\Livewire\Site\SiteAuth;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 Route::name('site.')->group(function () {
     Route::get('/', Home::class)->name('home');
     Route::post('/logout', SiteLogoutController::class)->middleware('auth')->name('logout');
+
+    Route::middleware('auth')->prefix('account')->name('account.')->group(function () {
+        Route::get('/profile', AccountProfile::class)->name('profile');
+    });
 
     Route::middleware('guest')->group(function () {
         Route::get('/login', SiteAuth::class)->name('login');

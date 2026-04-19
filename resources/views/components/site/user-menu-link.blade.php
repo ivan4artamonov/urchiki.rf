@@ -9,7 +9,7 @@
 @php
 	$shared = 'block w-full px-3.5 py-2.5 text-sm font-medium text-urchiki-text transition-colors hover:bg-urchiki-surface';
 	$controlClass = $button ? $shared.' cursor-pointer border-0 bg-transparent text-left' : $shared;
-	$linkHref = $button ? null : ($href ?? url('/account'));
+	$linkHref = $button ? null : ($href ?? route('site.account.profile'));
 	$currentNorm = rtrim(strtolower((string) request()->url()), '/');
 	$targetNorm = $linkHref !== null ? rtrim(strtolower((string) $linkHref), '/') : '';
 	$isCurrentPage = ! $button && $linkHref !== null && $currentNorm === $targetNorm;
