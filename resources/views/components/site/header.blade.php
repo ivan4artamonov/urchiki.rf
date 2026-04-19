@@ -27,7 +27,7 @@
 
 			@auth
 				<div class="relative">
-					<button type="button" class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-transparent bg-urchiki-accent-light font-site-heading text-sm font-extrabold text-urchiki-accent transition-colors hover:border-urchiki-accent" id="site-user-menu-button" data-dropdown-toggle="site-user-dropdown" data-dropdown-placement="bottom">
+					<button type="button" class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-transparent bg-urchiki-accent-light font-site-heading text-sm font-extrabold text-urchiki-accent transition-colors hover:border-urchiki-accent" id="site-user-menu-button" data-dropdown-toggle="site-user-dropdown" data-dropdown-placement="bottom-end">
 						<span class="sr-only">Меню аккаунта</span>
 						{{ auth()->user()->initial }}
 					</button>
