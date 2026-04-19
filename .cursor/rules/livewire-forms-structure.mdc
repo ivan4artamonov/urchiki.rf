@@ -12,7 +12,8 @@ alwaysApply: true
 
 ## Нейминг и зависимости
 
-- Имена Form-классов задавать по предметной области и сценарию: `TariffForm`, `ProfileSettingsForm`, `SubscriptionForm`.
+- Имена Form-классов задавать по предметной области и сценарию: `TariffForm`, `ProfileForm`, `EmailAuthForm`, `SubscriptionForm`.
+- Не дублировать контекст в имени: без префиксов `Site` и `Admin`, если класс уже в `Livewire/Site/Forms` или `Livewire/Admin/Forms`.
 - Namespace должен соответствовать физическому пути файла (`App\Livewire\Admin\Forms\...` или `App\Livewire\Site\Forms\...`).
 - Livewire-компонент должен импортировать Form из своего контекста (Admin или Site).
 
