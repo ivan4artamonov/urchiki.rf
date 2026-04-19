@@ -8,7 +8,9 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -26,6 +28,7 @@ use Illuminate\Support\Str;
  * @property Carbon|null $created_at Дата и время создания записи.
  * @property Carbon|null $updated_at Дата и время последнего обновления записи.
  * @property-read string $initial Буква для аватара: первый символ имени или email (верхний регистр).
+ * @property-read Collection<int, SocialAccount> $socialAccounts
  */
 #[Fillable(['name', 'email', 'password', 'is_admin'])]
 #[Hidden(['password', 'remember_token'])]
@@ -46,6 +49,16 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_admin' => 'boolean',
         ];
+    }
+
+    /**
+     * OAuth-аккаунты (ВКонтакте, Яндекс, Mail.ru и т.д.), привязанные к пользователю.
+     *
+     * @return HasMany<SocialAccount, User>
+     */
+    public function socialAccounts(): HasMany
+    {
+        return $this->hasMany(SocialAccount::class);
     }
 
     /**
