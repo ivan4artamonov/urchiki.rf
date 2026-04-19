@@ -35,4 +35,32 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | OAuth: вход через соцсети (Laravel Socialite + провайдеры)
+    |--------------------------------------------------------------------------
+    |
+    | Redirect URI в кабинете каждого сервиса должен совпадать с полем redirect
+    | (или с явным значением *_REDIRECT_URI в .env).
+    |
+    */
+
+    'vkontakte' => [
+        'client_id' => env('VKONTAKTE_CLIENT_ID'),
+        'client_secret' => env('VKONTAKTE_CLIENT_SECRET'),
+        'redirect' => env('VKONTAKTE_REDIRECT_URI', rtrim((string) env('APP_URL', 'http://localhost'), '/').'/auth/social/vkontakte/callback'),
+    ],
+
+    'yandex' => [
+        'client_id' => env('YANDEX_CLIENT_ID'),
+        'client_secret' => env('YANDEX_CLIENT_SECRET'),
+        'redirect' => env('YANDEX_REDIRECT_URI', rtrim((string) env('APP_URL', 'http://localhost'), '/').'/auth/social/yandex/callback'),
+    ],
+
+    'mailru' => [
+        'client_id' => env('MAILRU_CLIENT_ID'),
+        'client_secret' => env('MAILRU_CLIENT_SECRET'),
+        'redirect' => env('MAILRU_REDIRECT_URI', rtrim((string) env('APP_URL', 'http://localhost'), '/').'/auth/social/mailru/callback'),
+    ],
+
 ];
