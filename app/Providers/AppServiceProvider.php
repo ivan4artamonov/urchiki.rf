@@ -3,8 +3,13 @@
 namespace App\Providers;
 
 use App\View\Composers\GradeComposer;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use SocialiteProviders\Mailru\MailruExtendSocialite;
+use SocialiteProviders\Manager\SocialiteWasCalled;
+use SocialiteProviders\VKontakte\VKontakteExtendSocialite;
+use SocialiteProviders\Yandex\YandexExtendSocialite;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('components.site.footer', GradeComposer::class);
+
+        Event::listen(SocialiteWasCalled::class, [VKontakteExtendSocialite::class, 'handle']);
+        Event::listen(SocialiteWasCalled::class, [YandexExtendSocialite::class, 'handle']);
+        Event::listen(SocialiteWasCalled::class, [MailruExtendSocialite::class, 'handle']);
     }
 }
