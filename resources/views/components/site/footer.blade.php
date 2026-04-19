@@ -3,6 +3,23 @@
 @php
 	$home = route('site.home');
 	$navActiveHome = request()->routeIs('site.home');
+	$footerNavSubjectItems = [
+		['href' => url('/matematika'), 'label' => 'Математика'],
+		['href' => url('/russkij-yazyk'), 'label' => 'Русский язык'],
+		['href' => url('/okruzhayushchij-mir'), 'label' => 'Окружающий мир'],
+		['href' => url('/anglijskij-yazyk'), 'label' => 'Английский язык'],
+	];
+	$footerNavGradeItems = $footerGrades
+		->map(fn ($grade): array => [
+			'href' => url('/'.$grade->slug),
+			'label' => $grade->label,
+		])
+		->all();
+	$footerNavServiceItems = [
+		['href' => url('/subscribe'), 'label' => 'Тарифы'],
+		['href' => route('site.faq'), 'label' => 'Вопросы и ответы'],
+		['href' => url('/privacy'), 'label' => 'Политика конфиденциальности'],
+	];
 @endphp
 
 <footer class="mt-auto border-t border-urchiki-border bg-urchiki-surface py-12 pb-8">
@@ -22,31 +39,9 @@
 					Готовые рабочие листы для учителей,<br>репетиторов и родителей. 1–11 класс.
 				</p>
 			</div>
-			<div>
-				<h2 class="mb-3 font-site-heading text-sm font-extrabold text-urchiki-text">Предметы</h2>
-				<ul class="space-y-1 text-sm text-urchiki-muted">
-					<li><a href="{{ url('/matematika') }}" class="hover:text-urchiki-accent">Математика</a></li>
-					<li><a href="{{ url('/russkij-yazyk') }}" class="hover:text-urchiki-accent">Русский язык</a></li>
-					<li><a href="{{ url('/okruzhayushchij-mir') }}" class="hover:text-urchiki-accent">Окружающий мир</a></li>
-					<li><a href="{{ url('/anglijskij-yazyk') }}" class="hover:text-urchiki-accent">Английский язык</a></li>
-				</ul>
-			</div>
-			<div>
-				<h2 class="mb-3 font-site-heading text-sm font-extrabold text-urchiki-text">Классы</h2>
-				<ul class="space-y-1 text-sm text-urchiki-muted">
-					@foreach ($footerGrades as $grade)
-						<li><a href="{{ url('/' . $grade->slug) }}" class="hover:text-urchiki-accent">{{ $grade->label }}</a></li>
-					@endforeach
-				</ul>
-			</div>
-			<div>
-				<h2 class="mb-3 font-site-heading text-sm font-extrabold text-urchiki-text">Сервис</h2>
-				<ul class="space-y-1 text-sm text-urchiki-muted">
-					<li><a href="{{ url('/subscribe') }}" class="hover:text-urchiki-accent">Тарифы</a></li>
-					<li><a href="{{ url('/faq') }}" class="hover:text-urchiki-accent">Вопросы и ответы</a></li>
-					<li><span class="text-urchiki-muted">Политика конфиденциальности</span></li>
-				</ul>
-			</div>
+			<x-site.footer-nav-section title="Предметы" :items="$footerNavSubjectItems" />
+			<x-site.footer-nav-section title="Классы" :items="$footerNavGradeItems" />
+			<x-site.footer-nav-section title="Сервис" :items="$footerNavServiceItems" />
 		</div>
 		<div class="flex flex-col gap-4 border-t border-urchiki-border pt-5 text-xs text-urchiki-muted">
 			<div class="flex flex-col flex-wrap justify-between gap-3 sm:flex-row sm:items-center">

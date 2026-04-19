@@ -50,7 +50,7 @@
 				<x-site.nav-link :href="$home">Предметы</x-site.nav-link>
 				<x-site.nav-link :href="$home">Классы</x-site.nav-link>
 				<x-site.nav-link :href="url('/subscribe')">Подписка</x-site.nav-link>
-				<x-site.nav-link :href="url('/faq')">FAQ</x-site.nav-link>
+				<x-site.nav-link :href="route('site.faq')">Вопросы и ответы</x-site.nav-link>
 			</div>
 		</nav>
 	</x-site.page-container>
