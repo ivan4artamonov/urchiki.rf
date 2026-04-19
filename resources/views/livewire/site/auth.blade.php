@@ -7,6 +7,11 @@
 		<x-site.page-title align="center">
 			Войти в Урчики
 		</x-site.page-title>
+		@if (session('social_login_error'))
+			<div class="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center text-sm text-red-800">
+				{{ session('social_login_error') }}
+			</div>
+		@endif
 		<p class="mt-2 text-center text-[15px] leading-snug text-urchiki-muted">
 			На указанный адрес придёт код из 4 цифр.<br />Введите его, чтобы войти.
 		</p>
@@ -60,12 +65,9 @@
 
 		<div class="mt-10 text-center text-sm text-urchiki-muted">или через соцсети</div>
 		<div class="mt-3 flex gap-2.5">
-			<x-site.social-login-button icon="vk">ВКонтакте</x-site.social-login-button>
-			<x-site.social-login-button icon="yandex">Яндекс</x-site.social-login-button>
-			<x-site.social-login-button icon="maildotru">Mail.ru</x-site.social-login-button>
+			<x-site.social-login-button icon="vk" :href="route('site.social.redirect', 'vkontakte')">ВКонтакте</x-site.social-login-button>
+			<x-site.social-login-button icon="yandex" :href="route('site.social.redirect', 'yandex')">Яндекс</x-site.social-login-button>
+			<x-site.social-login-button icon="maildotru" :href="route('site.social.redirect', 'mailru')">Mail.ru</x-site.social-login-button>
 		</div>
-		<p class="mt-3 text-center text-xs leading-relaxed text-urchiki-muted">
-			Вход через соцсети подключим позже — по сценарию из прототипа.
-		</p>
 	</div>
 </div>
