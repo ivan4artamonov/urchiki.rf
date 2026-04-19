@@ -29,7 +29,6 @@ Route::name('site.')->group(function () {
 
     Route::prefix('auth/social')
         ->name('social.')
-        ->whereIn('provider', ['vkontakte', 'yandex', 'mailru'])
         ->group(function () {
             Route::middleware('guest')->get('{provider}/redirect', [SiteSocialAuthController::class, 'redirect'])
                 ->name('redirect');

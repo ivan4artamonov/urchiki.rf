@@ -15,13 +15,13 @@ class CompleteSiteEmailLoginAction
     /**
      * Проверяет код, при успехе создаёт пользователя при необходимости и авторизует.
      *
-     * @param  string  $email  Нормализованный email (нижний регистр, trim)
+     * @param  string  $email  Адрес электронной почты (нормализуется через {@see User::normalizeEmail()})
      * @param  string  $code  Четыре цифры без пробелов
      * @return User|null Модель пользователя при успехе; null при неверном коде или отсутствии кода
      */
     public function handle(string $email, string $code): ?User
     {
-        $normalized = mb_strtolower(trim($email));
+        $normalized = User::normalizeEmail($email);
         $key = 'site_email_otp:'.$normalized;
         $payload = Cache::get($key);
 
@@ -43,7 +43,7 @@ class CompleteSiteEmailLoginAction
         }
 
         $user = User::query()
-            ->whereRaw('LOWER(email) = ?', [$normalized])
+            ->whereEmailNormalized($normalized)
             ->first();
 
         if (! $user instanceof User) {

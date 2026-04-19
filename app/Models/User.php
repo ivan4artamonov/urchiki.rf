@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,6 +37,29 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * Канонический вид email для поиска и хранения: обрезка пробелов и нижний регистр.
+     *
+     * @param  string  $email  Исходная строка
+     * @return string Значение для сравнения в БД и ключей кэша
+     */
+    public static function normalizeEmail(string $email): string
+    {
+        return mb_strtolower(trim($email));
+    }
+
+    /**
+     * Ограничение выборки по адресу электронной почты без учёта регистра (сравнение через LOWER в БД).
+     *
+     * @param  Builder<User>  $query
+     * @param  string  $email  Строка до или после нормализации — внутри применяется {@see self::normalizeEmail()}
+     * @return Builder<User>
+     */
+    public function scopeWhereEmailNormalized(Builder $query, string $email): Builder
+    {
+        return $query->whereRaw('LOWER(email) = ?', [self::normalizeEmail($email)]);
+    }
 
     /**
      * Приведение атрибутов к типам при чтении и записи.

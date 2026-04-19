@@ -4,6 +4,7 @@ namespace App\Livewire\Site\Forms;
 
 use App\Actions\Site\CompleteSiteEmailLoginAction;
 use App\Actions\Site\SendSiteLoginCodeAction;
+use App\Models\User;
 use Livewire\Form;
 
 /**
@@ -16,7 +17,7 @@ class SiteEmailAuthForm extends Form
     public string $code = '';
 
     /**
-	 * Правила валидации для шага с адресом электронной почты.
+     * Правила валидации для шага с адресом электронной почты.
      *
      * @return array<string, mixed>
      */
@@ -48,15 +49,15 @@ class SiteEmailAuthForm extends Form
     public function messages(): array
     {
         return [
-			'email.required' => 'Укажите адрес электронной почты.',
-			'email.email' => 'Введите корректный адрес электронной почты.',
+            'email.required' => 'Укажите адрес электронной почты.',
+            'email.email' => 'Введите корректный адрес электронной почты.',
             'code.required' => 'Введите код из письма.',
             'code.regex' => 'Код должен состоять из 4 цифр.',
         ];
     }
 
     /**
-	 * Отправляет код на указанный адрес электронной почты.
+     * Отправляет код на указанный адрес электронной почты.
      *
      * @return bool true, если письмо отправлено; false при срабатывании лимита запросов
      */
@@ -84,7 +85,7 @@ class SiteEmailAuthForm extends Form
     {
         $this->validate($this->rulesForCode(), $this->messages());
 
-        $normalized = mb_strtolower(trim($this->email));
+        $normalized = User::normalizeEmail($this->email);
 
         $user = app(CompleteSiteEmailLoginAction::class)->handle($normalized, $this->code);
 

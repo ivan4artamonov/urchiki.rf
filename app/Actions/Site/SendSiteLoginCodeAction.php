@@ -3,6 +3,7 @@
 namespace App\Actions\Site;
 
 use App\Mail\SiteLoginCodeMail;
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -21,8 +22,7 @@ class SendSiteLoginCodeAction
      */
     public function handle(string $email): bool
     {
-        $to = trim($email);
-        $normalized = mb_strtolower($to);
+        $normalized = User::normalizeEmail($email);
         $rateKey = 'site_login_send:'.$normalized;
 
         if (RateLimiter::tooManyAttempts($rateKey, 5)) {
@@ -31,7 +31,7 @@ class SendSiteLoginCodeAction
 
         $plainCode = str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT);
 
-        Mail::to($to)->send(new SiteLoginCodeMail($plainCode));
+        Mail::to($normalized)->send(new SiteLoginCodeMail($plainCode));
 
         $otpKey = 'site_email_otp:'.$normalized;
 
