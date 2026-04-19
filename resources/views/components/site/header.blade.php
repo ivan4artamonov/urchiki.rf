@@ -4,7 +4,7 @@
 @endphp
 
 <header class="sticky top-0 z-50 border-b border-urchiki-border bg-urchiki-bg/90 backdrop-blur-md">
-	<x-site.page-container class="flex flex-wrap items-center justify-between gap-3 py-3 md:py-2">
+	<x-site.page-container class="flex flex-wrap items-center justify-between gap-3 py-2.5">
 		@if ($navActiveHome)
 			<span class="flex shrink-0 items-center">
 				<img src="{{ asset('i/logo.svg') }}" alt="{{ config('app.name') }}" width="180" height="60" class="block h-9 w-auto md:h-10">
@@ -27,9 +27,10 @@
 
 			@auth
 				<div class="relative">
-					<button type="button" class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 border-transparent bg-urchiki-accent-light font-site-heading text-sm font-extrabold text-urchiki-accent transition-colors hover:border-urchiki-accent" id="site-user-menu-button" data-dropdown-toggle="site-user-dropdown" data-dropdown-placement="bottom-end">
+					<button type="button" class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-transparent bg-urchiki-accent-light text-urchiki-accent transition-colors hover:border-urchiki-accent" id="site-user-menu-button" data-dropdown-toggle="site-user-dropdown" data-dropdown-placement="bottom-end" data-dropdown-offset-distance="10" data-dropdown-offset-skidding="0">
 						<span class="sr-only">Меню аккаунта</span>
-						{{ auth()->user()->initial }}
+						{{-- Heroicons v2 solid user (MIT) — ~10% меньше прежнего h-7 --}}
+						<svg class="h-[1.575rem] w-[1.575rem] shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd"/></svg>
 					</button>
 					<div class="z-50 hidden w-48 rounded-xl border border-urchiki-border bg-urchiki-card py-1.5 shadow-lg" id="site-user-dropdown">
 						<x-site.user-menu-link>Профиль</x-site.user-menu-link>
