@@ -32,7 +32,7 @@
 						{{ auth()->user()->initial }}
 					</button>
 					<div class="z-50 hidden w-48 rounded-xl border border-urchiki-border bg-urchiki-card py-1.5 shadow-lg" id="site-user-dropdown">
-						<x-site.user-menu-link :href="url('/account')">Личный кабинет</x-site.user-menu-link>
+						<x-site.user-menu-link>Личный кабинет</x-site.user-menu-link>
 						<form method="POST" action="{{ route('site.logout') }}" class="m-0">
 							@csrf
 							<x-site.user-menu-link :button="true">Выйти</x-site.user-menu-link>
@@ -44,8 +44,8 @@
 
 		<nav class="mt-3 hidden w-full border-t border-urchiki-border pt-5 md:order-1 md:mt-0 md:flex md:w-auto md:flex-row md:items-center md:border-0 md:pt-0" id="site-nav">
 			<div class="flex flex-col gap-y-2 md:flex md:flex-row md:items-center md:gap-x-2 md:gap-y-0">
-				<x-site.nav-link :href="$home" :active="$navActiveHome">Предметы</x-site.nav-link>
-				<x-site.nav-link :href="$home" :active="$navActiveHome">Классы</x-site.nav-link>
+				<x-site.nav-link :href="$home">Предметы</x-site.nav-link>
+				<x-site.nav-link :href="$home">Классы</x-site.nav-link>
 				<x-site.nav-link :href="url('/subscribe')">Подписка</x-site.nav-link>
 				<x-site.nav-link :href="url('/faq')">FAQ</x-site.nav-link>
 			</div>
