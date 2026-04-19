@@ -10,7 +10,7 @@ use Livewire\Form;
 /**
  * Единая форма входа и регистрации на сайте по адресу электронной почты и коду из письма.
  */
-class SiteEmailAuthForm extends Form
+class EmailAuthForm extends Form
 {
     public string $email = '';
 

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Site;
 
-use App\Livewire\Site\Forms\SiteEmailAuthForm;
+use App\Livewire\Site\Forms\EmailAuthForm;
 use App\Support\SiteLoginRedirect;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ use Livewire\Component;
  */
 class SiteAuth extends Component
 {
-    public SiteEmailAuthForm $form;
+    public EmailAuthForm $form;
 
     /**
      * Шаг сценария: ввод адреса электронной почты или ввод кода из письма.
