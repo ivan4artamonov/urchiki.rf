@@ -3,6 +3,7 @@
 namespace App\Livewire\Site;
 
 use App\Livewire\Site\Forms\SiteEmailAuthForm;
+use App\Support\SiteLoginRedirect;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -85,25 +86,7 @@ class SiteAuth extends Component
      */
     private function redirectAfterSiteLogin(): void
     {
-        $default = route('site.home');
-        $intended = session()->pull('url.intended');
-
-        if (! is_string($intended) || $intended === '') {
-            $this->redirect($default, navigate: true);
-
-            return;
-        }
-
-        $path = parse_url($intended, PHP_URL_PATH);
-        $path = is_string($path) ? $path : '';
-
-        if (str_starts_with($path, '/admin')) {
-            $this->redirect($default, navigate: true);
-
-            return;
-        }
-
-        $this->redirect($intended, navigate: true);
+        $this->redirect(SiteLoginRedirect::urlAfterLogin(), navigate: true);
     }
 
     /**
