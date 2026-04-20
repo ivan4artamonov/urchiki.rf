@@ -45,7 +45,7 @@ class SiteLoginCodeMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.Site.login-code',
+            view: 'mail.site.login-code',
         );
     }
 
