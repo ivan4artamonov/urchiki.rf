@@ -1,4 +1,4 @@
-@use('App\Enums\SiteSocialLoginProvider')
+@use('App\Enums\SocialLoginProvider')
 
 <div class="flex flex-1 flex-col">
 	<x-site.breadcrumbs :items="[
@@ -67,9 +67,9 @@
 
 		<div class="mt-10 text-center text-sm text-urchiki-muted">или через соцсети</div>
 		<div class="mt-3 flex gap-2.5">
-			<x-site.social-login-button icon="vk" :href="route('site.social.redirect', SiteSocialLoginProvider::Vkontakte)">ВКонтакте</x-site.social-login-button>
-			<x-site.social-login-button icon="yandex" :href="route('site.social.redirect', SiteSocialLoginProvider::Yandex)">Яндекс</x-site.social-login-button>
-			<x-site.social-login-button icon="maildotru" :href="route('site.social.redirect', SiteSocialLoginProvider::Mailru)">Mail.ru</x-site.social-login-button>
+			<x-site.social-login-button icon="vk" :href="route('site.social.redirect', SocialLoginProvider::Vkontakte)">ВКонтакте</x-site.social-login-button>
+			<x-site.social-login-button icon="yandex" :href="route('site.social.redirect', SocialLoginProvider::Yandex)">Яндекс</x-site.social-login-button>
+			<x-site.social-login-button icon="maildotru" :href="route('site.social.redirect', SocialLoginProvider::Mailru)">Mail.ru</x-site.social-login-button>
 		</div>
 	</div>
 </div>

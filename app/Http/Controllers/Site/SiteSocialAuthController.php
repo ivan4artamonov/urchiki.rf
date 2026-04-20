@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Actions\Site\CompleteSocialLoginAction;
-use App\Enums\SiteSocialLoginProvider;
+use App\Enums\SocialLoginProvider;
 use App\Support\SiteLoginRedirect;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -13,12 +13,12 @@ use Throwable;
 
 class SiteSocialAuthController
 {
-    public function redirect(SiteSocialLoginProvider $provider): RedirectResponse
+    public function redirect(SocialLoginProvider $provider): RedirectResponse
     {
         return Socialite::driver($provider->driverName())->redirect();
     }
 
-    public function callback(SiteSocialLoginProvider $provider, CompleteSocialLoginAction $completeSocialLogin): RedirectResponse
+    public function callback(SocialLoginProvider $provider, CompleteSocialLoginAction $completeSocialLogin): RedirectResponse
     {
         if (Auth::check()) {
             return redirect()->to(route('site.home'));

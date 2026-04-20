@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\SiteSocialLoginProvider;
+use App\Enums\SocialLoginProvider;
 use App\Models\SocialAccount;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,9 +26,9 @@ test('неизвестный провайдер в пути даёт 404', funct
 });
 
 test('гость перенаправляется на фейковый URL провайдера при переходе на social redirect', function (): void {
-    Socialite::fake(SiteSocialLoginProvider::Vkontakte->value);
+    Socialite::fake(SocialLoginProvider::Vkontakte->value);
 
-    $this->get(route('site.social.redirect', SiteSocialLoginProvider::Vkontakte))
+    $this->get(route('site.social.redirect', SocialLoginProvider::Vkontakte))
         ->assertRedirect('https://socialite.fake/vkontakte/authorize');
 });
 
@@ -38,9 +38,9 @@ test('callback создаёт пользователя и привязку со�
     $oauthUser->email = 'oauth-new@example.com';
     $oauthUser->name = 'OAuth User';
 
-    Socialite::fake(SiteSocialLoginProvider::Vkontakte->value, $oauthUser);
+    Socialite::fake(SocialLoginProvider::Vkontakte->value, $oauthUser);
 
-    $this->get(route('site.social.callback', SiteSocialLoginProvider::Vkontakte))
+    $this->get(route('site.social.callback', SocialLoginProvider::Vkontakte))
         ->assertRedirect(route('site.home'));
 
     $this->assertDatabaseHas('users', [
@@ -52,7 +52,7 @@ test('callback создаёт пользователя и привязку со�
     $this->assertAuthenticatedAs($user);
     $this->assertDatabaseHas('social_accounts', [
         'user_id' => $user->id,
-        'provider' => SiteSocialLoginProvider::Vkontakte->value,
+        'provider' => SocialLoginProvider::Vkontakte->value,
         'provider_user_id' => 'vk-new-1',
     ]);
 });
@@ -69,16 +69,16 @@ test('callback объединяет с существующим пользова
     $oauthUser->email = 'merge@example.com';
     $oauthUser->name = 'From VK';
 
-    Socialite::fake(SiteSocialLoginProvider::Vkontakte->value, $oauthUser);
+    Socialite::fake(SocialLoginProvider::Vkontakte->value, $oauthUser);
 
-    $this->get(route('site.social.callback', SiteSocialLoginProvider::Vkontakte))
+    $this->get(route('site.social.callback', SocialLoginProvider::Vkontakte))
         ->assertRedirect(route('site.home'));
 
     $this->assertAuthenticatedAs($existing);
     $this->assertSame(1, SocialAccount::query()->where('user_id', $existing->id)->count());
     $this->assertDatabaseHas('social_accounts', [
         'user_id' => $existing->id,
-        'provider' => SiteSocialLoginProvider::Vkontakte->value,
+        'provider' => SocialLoginProvider::Vkontakte->value,
         'provider_user_id' => 'vk-merge-1',
     ]);
 });
@@ -88,9 +88,9 @@ test('callback без email в ответе провайдера возвращ�
     $oauthUser->id = 'vk-no-email';
     $oauthUser->email = null;
 
-    Socialite::fake(SiteSocialLoginProvider::Vkontakte->value, $oauthUser);
+    Socialite::fake(SocialLoginProvider::Vkontakte->value, $oauthUser);
 
-    $response = $this->get(route('site.social.callback', SiteSocialLoginProvider::Vkontakte));
+    $response = $this->get(route('site.social.callback', SocialLoginProvider::Vkontakte));
 
     $response->assertRedirect(route('site.login'));
     $response->assertSessionHas('social_login_error');

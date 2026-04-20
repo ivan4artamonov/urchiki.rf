@@ -2,7 +2,7 @@
 
 namespace App\Actions\Site;
 
-use App\Enums\SiteSocialLoginProvider;
+use App\Enums\SocialLoginProvider;
 use App\Models\SocialAccount;
 use App\Models\User;
 use App\Services\Site\SiteSocialLoginService;
@@ -27,14 +27,14 @@ readonly class CompleteSocialLoginAction
     /**
      * Находит или создаёт пользователя, создаёт при необходимости запись в social_accounts, выполняет вход в сессию.
      *
-     * @param  SiteSocialLoginProvider  $provider  Драйвер OAuth для сайта
+     * @param  SocialLoginProvider  $provider  Драйвер OAuth для сайта
      * @param  SocialiteUser  $socialUser  Данные профиля, полученные от провайдера
      * @return User|null Вошедший пользователь; null, если у провайдера нет непустого email
      *
      * @throws ModelNotFoundException Если после гонки по уникальному email запись пользователя не найдена (firstOrFail)
      * @throws QueryException|Throwable При сбое SQL внутри транзакции (создание пользователя, привязка)
      */
-    public function handle(SiteSocialLoginProvider $provider, SocialiteUser $socialUser): ?User
+    public function handle(SocialLoginProvider $provider, SocialiteUser $socialUser): ?User
     {
         $providerUserId = $this->providerUserId($socialUser);
 
@@ -74,11 +74,11 @@ readonly class CompleteSocialLoginAction
     /**
      * Если привязка provider + id уже есть — входим в сессию и возвращаем пользователя.
      *
-     * @param  SiteSocialLoginProvider  $provider  Драйвер OAuth
+     * @param  SocialLoginProvider  $provider  Драйвер OAuth
      * @param  string  $providerUserId  Идентификатор у провайдера
      * @return User|null Учётная запись при существующей привязке; null, если записи social_accounts нет
      */
-    private function completeLoginIfSocialAccountAlreadyLinked(SiteSocialLoginProvider $provider, string $providerUserId): ?User
+    private function completeLoginIfSocialAccountAlreadyLinked(SocialLoginProvider $provider, string $providerUserId): ?User
     {
         $link = SocialAccount::query()
             ->where('provider', $provider->value)
@@ -114,7 +114,7 @@ readonly class CompleteSocialLoginAction
     /**
      * В транзакции находит или создаёт пользователя по email и гарантирует строку social_accounts.
      *
-     * @param  SiteSocialLoginProvider  $provider  Драйвер OAuth
+     * @param  SocialLoginProvider  $provider  Драйвер OAuth
      * @param  string  $providerUserId  Идентификатор у провайдера
      * @param  string  $email  Уже нормализованный email
      * @param  SocialiteUser  $socialUser  Профиль провайдера
@@ -124,7 +124,7 @@ readonly class CompleteSocialLoginAction
      * @throws QueryException|Throwable При сбое SQL внутри транзакции
      */
     private function resolveUserAndEnsureSocialAccountInTransaction(
-        SiteSocialLoginProvider $provider,
+        SocialLoginProvider $provider,
         string $providerUserId,
         string $email,
         SocialiteUser $socialUser,
@@ -181,14 +181,14 @@ readonly class CompleteSocialLoginAction
     /**
      * Создаёт при необходимости запись social_accounts для пары provider + внешний id.
      *
-     * @param  SiteSocialLoginProvider  $provider  Драйвер OAuth
+     * @param  SocialLoginProvider  $provider  Драйвер OAuth
      * @param  string  $providerUserId  Идентификатор у провайдера
      * @param  User  $user  Владелец привязки
      * @return void
      *
      * @throws QueryException При ошибке записи в БД
      */
-    private function ensureSocialAccountLinked(SiteSocialLoginProvider $provider, string $providerUserId, User $user): void
+    private function ensureSocialAccountLinked(SocialLoginProvider $provider, string $providerUserId, User $user): void
     {
         SocialAccount::query()->firstOrCreate(
             [
