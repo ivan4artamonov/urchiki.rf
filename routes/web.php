@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\LogoutController as AdminLogoutController;
 use App\Http\Controllers\Site\LogoutController as SiteLogoutController;
-use App\Http\Controllers\Site\SiteSocialAuthController;
+use App\Http\Controllers\Site\SocialAuthController;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\Faq\Create as FaqCreate;
 use App\Livewire\Admin\Faq\Edit as FaqEdit;
@@ -37,10 +37,10 @@ Route::name('site.')->group(function () {
     Route::prefix('auth/social')
         ->name('social.')
         ->group(function () {
-            Route::middleware('guest')->get('{provider}/redirect', [SiteSocialAuthController::class, 'redirect'])
+            Route::middleware('guest')->get('{provider}/redirect', [SocialAuthController::class, 'redirect'])
                 ->name('redirect');
 
-            Route::get('{provider}/callback', [SiteSocialAuthController::class, 'callback'])
+            Route::get('{provider}/callback', [SocialAuthController::class, 'callback'])
                 ->name('callback');
         });
 });

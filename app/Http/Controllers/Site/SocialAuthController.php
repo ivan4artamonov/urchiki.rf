@@ -11,7 +11,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
 use Throwable;
 
-class SiteSocialAuthController
+class SocialAuthController
 {
     public function redirect(SocialLoginProvider $provider): RedirectResponse
     {

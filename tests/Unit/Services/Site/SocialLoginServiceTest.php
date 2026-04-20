@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use App\Services\Site\SiteSocialLoginService;
+use App\Services\Site\SocialLoginService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
@@ -18,7 +18,7 @@ test('displayNameFromSocialiteUser берёт полное имя если он�
     $social->shouldReceive('getName')->andReturn('  Иван Петров  ');
     $social->shouldReceive('getNickname')->never();
 
-    $name = app(SiteSocialLoginService::class)->displayNameFromSocialiteUser($social);
+    $name = app(SocialLoginService::class)->displayNameFromSocialiteUser($social);
 
     expect($name)->toBe('Иван Петров');
 });
@@ -28,7 +28,7 @@ test('displayNameFromSocialiteUser при пустом имени берёт nic
     $social->shouldReceive('getName')->andReturn('   ');
     $social->shouldReceive('getNickname')->andReturn(' ivan_p ');
 
-    $name = app(SiteSocialLoginService::class)->displayNameFromSocialiteUser($social);
+    $name = app(SocialLoginService::class)->displayNameFromSocialiteUser($social);
 
     expect($name)->toBe('ivan_p');
 });
@@ -38,7 +38,7 @@ test('displayNameFromSocialiteUser возвращает null если нет н�
     $social->shouldReceive('getName')->andReturn(null);
     $social->shouldReceive('getNickname')->andReturn(null);
 
-    $name = app(SiteSocialLoginService::class)->displayNameFromSocialiteUser($social);
+    $name = app(SocialLoginService::class)->displayNameFromSocialiteUser($social);
 
     expect($name)->toBeNull();
 });
@@ -49,7 +49,7 @@ test('syncDisplayNameFromSocialite не меняет пользователя е
     $social->shouldReceive('getName')->never();
     $social->shouldReceive('getNickname')->never();
 
-    app(SiteSocialLoginService::class)->syncDisplayNameFromSocialite($user, $social);
+    app(SocialLoginService::class)->syncDisplayNameFromSocialite($user, $social);
 
     expect($user->fresh()->name)->toBe('Старый');
 });
@@ -60,7 +60,7 @@ test('syncDisplayNameFromSocialite подставляет имя из профи
     $social->shouldReceive('getName')->andReturn('Из OAuth');
     $social->shouldReceive('getNickname')->never();
 
-    app(SiteSocialLoginService::class)->syncDisplayNameFromSocialite($user, $social);
+    app(SocialLoginService::class)->syncDisplayNameFromSocialite($user, $social);
 
     expect($user->fresh()->name)->toBe('Из OAuth');
 });
@@ -68,7 +68,7 @@ test('syncDisplayNameFromSocialite подставляет имя из профи
 test('loginWebUser авторизует пользователя в guard по умолчанию', function (): void {
     $user = User::factory()->create(['email' => 'login@example.com']);
 
-    app(SiteSocialLoginService::class)->loginWebUser($user);
+    app(SocialLoginService::class)->loginWebUser($user);
 
     expect(Auth::check())->toBeTrue()
         ->and(Auth::id())->toBe($user->id);

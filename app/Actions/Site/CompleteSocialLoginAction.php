@@ -5,7 +5,7 @@ namespace App\Actions\Site;
 use App\Enums\SocialLoginProvider;
 use App\Models\SocialAccount;
 use App\Models\User;
-use App\Services\Site\SiteSocialLoginService;
+use App\Services\Site\SocialLoginService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\UniqueConstraintViolationException;
@@ -21,7 +21,7 @@ use Throwable;
 readonly class CompleteSocialLoginAction
 {
     public function __construct(
-        private SiteSocialLoginService $siteSocialLogin,
+        private SocialLoginService $socialLogin,
     ) {}
 
     /**
@@ -55,7 +55,7 @@ readonly class CompleteSocialLoginAction
             $socialUser,
         );
 
-        $this->siteSocialLogin->loginWebUser($user);
+        $this->socialLogin->loginWebUser($user);
 
         return $user;
     }
@@ -90,7 +90,7 @@ readonly class CompleteSocialLoginAction
         }
 
         $user = $link->user;
-        $this->siteSocialLogin->loginWebUser($user);
+        $this->socialLogin->loginWebUser($user);
 
         return $user;
     }
@@ -155,7 +155,7 @@ readonly class CompleteSocialLoginAction
             ->first();
 
         if ($locked instanceof User) {
-            $this->siteSocialLogin->syncDisplayNameFromSocialite($locked, $socialUser);
+            $this->socialLogin->syncDisplayNameFromSocialite($locked, $socialUser);
 
             return $locked;
         }
@@ -163,7 +163,7 @@ readonly class CompleteSocialLoginAction
         try {
             return User::query()->create([
                 'email' => $email,
-                'name' => $this->siteSocialLogin->displayNameFromSocialiteUser($socialUser),
+                'name' => $this->socialLogin->displayNameFromSocialiteUser($socialUser),
                 'password' => null,
                 'is_admin' => false,
             ]);
@@ -172,7 +172,7 @@ readonly class CompleteSocialLoginAction
                 ->whereEmailNormalized($email)
                 ->lockForUpdate()
                 ->firstOrFail();
-            $this->siteSocialLogin->syncDisplayNameFromSocialite($user, $socialUser);
+            $this->socialLogin->syncDisplayNameFromSocialite($user, $socialUser);
 
             return $user;
         }

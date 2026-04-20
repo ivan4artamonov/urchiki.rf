@@ -10,7 +10,7 @@ use Laravel\Socialite\Contracts\User as SocialiteUser;
 /**
  * Вспомогательные операции для входа на сайт через OAuth (сессия и данные профиля провайдера).
  */
-class SiteSocialLoginService
+class SocialLoginService
 {
     /**
      * Помещает пользователя в guard веб-сессии и при наличии сессии регенерирует её идентификатор.
