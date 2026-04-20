@@ -8,6 +8,7 @@ use App\Livewire\Admin\Faq\Create as FaqCreate;
 use App\Livewire\Admin\Faq\Edit as FaqEdit;
 use App\Livewire\Admin\Faq\Index as FaqIndex;
 use App\Livewire\Admin\Login;
+use App\Livewire\Admin\SubjectsTopics;
 use App\Livewire\Admin\Tariffs\Create as TariffsCreate;
 use App\Livewire\Admin\Tariffs\Edit as TariffsEdit;
 use App\Livewire\Admin\Tariffs\Index as TariffsIndex;
@@ -53,6 +54,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/', Dashboard::class)->name('dashboard');
         Route::get('/worksheets', Worksheets::class)->name('worksheets');
+        Route::get('/subjects-topics', SubjectsTopics::class)->name('subjects-topics');
         Route::prefix('users')->name('users.')->group(function () {
             Route::get('/', UsersIndex::class)->name('index');
             Route::get('/create', UsersCreate::class)->name('create');
