@@ -49,18 +49,9 @@
 						</button>
 					</div>
 					<div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto" id="navbar-admin">
-						@php
-							$adminNavItems = [
-								['label' => 'Рабочие листы', 'href' => route('admin.worksheets'), 'active' => request()->routeIs('admin.worksheets')],
-								['label' => 'Предметы и темы', 'href' => route('admin.subjects-topics'), 'active' => request()->routeIs('admin.subjects-topics')],
-								['label' => 'Пользователи', 'href' => route('admin.users.index'), 'active' => request()->routeIs('admin.users*')],
-								['label' => 'ЧаВо', 'href' => route('admin.faq.index'), 'active' => request()->routeIs('admin.faq*')],
-								['label' => 'Тарифы', 'href' => route('admin.tariffs.index'), 'active' => request()->routeIs('admin.tariffs*')],
-							];
-						@endphp
 						<ul class="mt-4 flex flex-col rounded-base border border-default bg-neutral-secondary-soft p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-neutral-primary rtl:space-x-reverse">
-							@foreach($adminNavItems as $item)
-								<x-admin.nav-link :href="$item['href']" :active="$item['active'] ?? false">{{ $item['label'] }}</x-admin.nav-link>
+							@foreach($adminNavItems ?? [] as $label => $href)
+								<x-admin.nav-link :href="$href">{{ $label }}</x-admin.nav-link>
 							@endforeach
 						</ul>
 					</div>
