@@ -79,3 +79,18 @@ test('связь topics возвращает темы предмета в пор
 		'Алгебра',
 	]);
 });
+
+test('массовое заполнение поддерживает seo-поля и article у предмета', function (): void {
+	$subject = Subject::create([
+		'name' => 'Физика',
+		'seo_title' => 'Физика - теория и задачи',
+		'seo_description' => 'Описание страницы предмета физика',
+		'seo_keywords' => 'физика, задачи, формулы',
+		'article' => 'Большой текст статьи о физике',
+	]);
+
+	expect($subject->seo_title)->toBe('Физика - теория и задачи')
+		->and($subject->seo_description)->toBe('Описание страницы предмета физика')
+		->and($subject->seo_keywords)->toBe('физика, задачи, формулы')
+		->and($subject->article)->toBe('Большой текст статьи о физике');
+});

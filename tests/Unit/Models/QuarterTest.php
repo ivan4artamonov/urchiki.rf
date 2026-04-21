@@ -46,3 +46,21 @@ test('full_label возвращает полную метку на базе ordi
 
 	expect($quarter->full_label)->toBe('Третья четверть');
 });
+
+test('массовое заполнение поддерживает seo-поля и article у четверти', function (): void {
+	$grade = Grade::create(['number' => 6]);
+
+	$quarter = Quarter::create([
+		'grade_id' => $grade->id,
+		'number' => 1,
+		'seo_title' => 'Первая четверть 6 класса',
+		'seo_description' => 'Описание страницы первой четверти',
+		'seo_keywords' => 'первая четверть, 6 класс',
+		'article' => 'Текст статьи для первой четверти',
+	]);
+
+	expect($quarter->seo_title)->toBe('Первая четверть 6 класса')
+		->and($quarter->seo_description)->toBe('Описание страницы первой четверти')
+		->and($quarter->seo_keywords)->toBe('первая четверть, 6 класс')
+		->and($quarter->article)->toBe('Текст статьи для первой четверти');
+});

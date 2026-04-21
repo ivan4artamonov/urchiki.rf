@@ -18,6 +18,10 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $number Номер параллели (ожидается 1…11), колонка в таблице «grades».
  * @property string $slug Уникальный слаг URL (например «3-klass»).
+ * @property null|string $seo_title SEO-заголовок страницы класса.
+ * @property null|string $seo_description SEO-описание страницы класса.
+ * @property null|string $seo_keywords SEO-ключевые слова страницы класса.
+ * @property null|string $article Текст статьи для страницы класса.
  * @property-read string $label Подпись для UI («3 класс»), вычисляется аксессором, в БД не хранится.
  * @property-read Collection<int, Quarter> $quarters Четверти, относящиеся к этому классу.
  */
@@ -29,12 +33,18 @@ class Grade extends Model
 	 * Ключи:
 	 * — number: номер параллели (1…11);
 	 * — slug: URL-сегмент; если пусто при сохранении, подставляется в {@see booted()}.
+	 * — seo_title, seo_description, seo_keywords: SEO-метаданные страницы класса.
+	 * — article: текст статьи для страницы класса.
 	 *
 	 * @var list<string>
 	 */
 	protected $fillable = [
 		'number',
 		'slug',
+		'seo_title',
+		'seo_description',
+		'seo_keywords',
+		'article',
 	];
 
 	/**

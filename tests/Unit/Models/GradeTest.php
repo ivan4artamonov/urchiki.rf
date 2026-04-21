@@ -37,3 +37,18 @@ test('ключ маршрутизации — slug', function (): void {
 
 	expect($grade->getRouteKeyName())->toBe('slug');
 });
+
+test('массовое заполнение поддерживает seo-поля и article у класса', function (): void {
+	$grade = Grade::create([
+		'number' => 8,
+		'seo_title' => '8 класс - учебные материалы',
+		'seo_description' => 'Описание страницы 8 класса',
+		'seo_keywords' => '8 класс, школьная программа',
+		'article' => 'Текст статьи для страницы 8 класса',
+	]);
+
+	expect($grade->seo_title)->toBe('8 класс - учебные материалы')
+		->and($grade->seo_description)->toBe('Описание страницы 8 класса')
+		->and($grade->seo_keywords)->toBe('8 класс, школьная программа')
+		->and($grade->article)->toBe('Текст статьи для страницы 8 класса');
+});

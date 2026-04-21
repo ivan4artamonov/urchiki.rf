@@ -15,6 +15,10 @@ use Nevadskiy\Position\PositioningScope;
  * @property int $subject_id Идентификатор предмета, к которому относится тема.
  * @property string $name Название темы для интерфейса.
  * @property int $position Порядок отображения темы внутри предмета.
+ * @property null|string $seo_title SEO-заголовок страницы темы.
+ * @property null|string $seo_description SEO-описание страницы темы.
+ * @property null|string $seo_keywords SEO-ключевые слова страницы темы.
+ * @property null|string $article Текст статьи для страницы темы.
  * @property-read Subject $subject Предмет, к которому привязана тема.
  * @method static Builder<self> ordered() Получить темы в порядке отображения.
  */
@@ -51,6 +55,10 @@ class Topic extends Model
 		'subject_id',
 		'name',
 		'position',
+		'seo_title',
+		'seo_description',
+		'seo_keywords',
+		'article',
 	];
 
 	/**

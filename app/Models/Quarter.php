@@ -15,6 +15,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property int $grade_id Идентификатор класса, к которому относится четверть.
  * @property int $number Номер четверти (1…4) внутри класса.
+ * @property null|string $seo_title SEO-заголовок страницы четверти.
+ * @property null|string $seo_description SEO-описание страницы четверти.
+ * @property null|string $seo_keywords SEO-ключевые слова страницы четверти.
+ * @property null|string $article Текст статьи для страницы четверти.
  * @property-read string $ordinal_label Порядковая метка четверти («Первая», «Вторая», ...).
  * @property-read string $short_label Короткая метка четверти («1 четверть», «2 четверть», ...).
  * @property-read string $full_label Полная метка четверти («Первая четверть», «Вторая четверть», ...).
@@ -30,6 +34,10 @@ class Quarter extends Model
 	protected $fillable = [
 		'grade_id',
 		'number',
+		'seo_title',
+		'seo_description',
+		'seo_keywords',
+		'article',
 	];
 
 	/**

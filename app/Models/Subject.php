@@ -23,6 +23,10 @@ use Nevadskiy\Position\PositioningScope;
  * @property string $name Название для интерфейса («Математика», «Русский язык»).
  * @property string $slug Уникальный слаг URL (например «matematika»).
  * @property int $position Порядок отображения среди предметов.
+ * @property null|string $seo_title SEO-заголовок страницы предмета.
+ * @property null|string $seo_description SEO-описание страницы предмета.
+ * @property null|string $seo_keywords SEO-ключевые слова страницы предмета.
+ * @property null|string $article Текст статьи для страницы предмета.
  * @property-read Collection<int, Topic> $topics Темы текущего предмета.
  * @method static Builder<self> ordered() Получить предметы в порядке отображения.
  */
@@ -47,6 +51,8 @@ class Subject extends Model
 	 * — name: подпись предмета;
 	 * — slug: URL-сегмент; если пусто при сохранении, подставляется в {@see booted()} из {@see $name};
 	 * — position: порядок в списке (необязательно при создании — назначит пакет позиций).
+	 * — seo_title, seo_description, seo_keywords: SEO-метаданные карточки и страницы предмета.
+	 * — article: текст статьи для страницы предмета.
 	 *
 	 * @var list<string>
 	 */
@@ -54,6 +60,10 @@ class Subject extends Model
 		'name',
 		'slug',
 		'position',
+		'seo_title',
+		'seo_description',
+		'seo_keywords',
+		'article',
 	];
 
 	/**
