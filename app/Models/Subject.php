@@ -10,6 +10,9 @@ use Illuminate\Support\Str;
 use Nevadskiy\Position\HasPosition;
 use Nevadskiy\Position\PositionObserver;
 use Nevadskiy\Position\PositioningScope;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Школьный предмет с набором тем.
@@ -27,12 +30,14 @@ use Nevadskiy\Position\PositioningScope;
  * @property null|string $seo_description SEO-описание страницы предмета.
  * @property null|string $seo_keywords SEO-ключевые слова страницы предмета.
  * @property null|string $article Текст статьи для страницы предмета.
+ * @property-read null|string $icon_url URL иконки предмета из медиаколлекции.
  * @property-read Collection<int, Topic> $topics Темы текущего предмета.
  * @method static Builder<self> ordered() Получить предметы в порядке отображения.
  */
-class Subject extends Model
+class Subject extends Model implements HasMedia
 {
 	use HasPosition;
+	use InteractsWithMedia;
 
 	/**
 	 * Инициализирует позиционирование без рекурсивной регистрации observer.
@@ -133,5 +138,45 @@ class Subject extends Model
 	public function topics(): HasMany
 	{
 		return $this->hasMany(Topic::class)->ordered();
+	}
+
+	/**
+	 * Регистрирует медиаколлекции предмета.
+	 *
+	 * @return void
+	 */
+	public function registerMediaCollections(): void
+	{
+		$this
+			->addMediaCollection('icon')
+			->acceptsMimeTypes([
+				'image/jpeg',
+				'image/png',
+				'image/webp',
+				'image/svg+xml',
+			])
+			->singleFile();
+	}
+
+	/**
+	 * Возвращает медиа-объект иконки предмета.
+	 *
+	 * @return Media|null Иконка предмета или null, если файл не загружен.
+	 */
+	public function icon(): ?Media
+	{
+		return $this->getFirstMedia('icon');
+	}
+
+	/**
+	 * Возвращает URL иконки предмета как виртуальный атрибут.
+	 *
+	 * @return string|null URL иконки или null, если иконка отсутствует.
+	 */
+	public function getIconUrlAttribute(): ?string
+	{
+		$iconUrl = $this->getFirstMediaUrl('icon');
+
+		return $iconUrl !== '' ? $iconUrl : null;
 	}
 }
