@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $number Номер параллели (ожидается 1…11), колонка в таблице «grades».
  * @property string $slug Уникальный слаг URL (например «3-klass»).
  * @property-read string $label Подпись для UI («3 класс»), вычисляется аксессором, в БД не хранится.
+ * @property-read Collection<int, Quarter> $quarters Четверти, относящиеся к этому классу.
  */
 class Grade extends Model
 {
@@ -83,5 +86,15 @@ class Grade extends Model
 	protected function label(): Attribute
 	{
 		return Attribute::get(fn (): string => $this->number . ' класс');
+	}
+
+	/**
+	 * Возвращает связь «класс имеет много четвертей».
+	 *
+	 * @return HasMany<Quarter, Grade> Запрос на выборку четвертей текущего класса.
+	 */
+	public function quarters(): HasMany
+	{
+		return $this->hasMany(Quarter::class);
 	}
 }
