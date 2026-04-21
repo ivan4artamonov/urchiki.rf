@@ -3,24 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use Nevadskiy\Position\HasPosition;
 use Nevadskiy\Position\PositionObserver;
 use Nevadskiy\Position\PositioningScope;
 
 /**
- * Школьный предмет (корень каталога материалов).
+ * Школьный предмет с набором тем.
  *
- * Уровень «предмет» в цепочке предмет → класс → тема → лист. Сегмент публичного URL
- * хранится в {@see $slug} (латиница, как в прототипе навигации сайта).
- * Порядок в списках задаётся колонкой {@see $position} (трейт {@see HasPosition}).
+ * Предмет используется как верхний уровень для каталога тем. Сегмент публичного URL
+ * хранится в {@see $slug} (латиница, как в прототипе навигации сайта), а порядок
+ * в списках задаётся колонкой {@see $position} (трейт {@see HasPosition}).
  *
  * Дополнительно к наследуемому API {@see Model}:
  *
  * @property string $name Название для интерфейса («Математика», «Русский язык»).
  * @property string $slug Уникальный слаг URL (например «matematika»).
  * @property int $position Порядок отображения среди предметов.
+ * @property-read Collection<int, Topic> $topics Темы текущего предмета.
  * @method static Builder<self> ordered() Получить предметы в порядке отображения.
  */
 class Subject extends Model
@@ -110,5 +113,15 @@ class Subject extends Model
 		return $query
 			->orderByPosition()
 			->orderBy('id');
+	}
+
+	/**
+	 * Возвращает связь «предмет содержит темы».
+	 *
+	 * @return HasMany<Topic, Subject> Запрос на выборку тем текущего предмета.
+	 */
+	public function topics(): HasMany
+	{
+		return $this->hasMany(Topic::class)->ordered();
 	}
 }

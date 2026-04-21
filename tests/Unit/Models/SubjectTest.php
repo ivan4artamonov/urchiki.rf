@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Subject;
+use App\Models\Topic;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -58,4 +59,23 @@ test('при создании без position позиция назначает�
 	expect($first->position)->toBeInt()
 		->and($second->position)->toBeInt()
 		->and($first->position)->toBeLessThan($second->position);
+});
+
+test('связь topics возвращает темы предмета в порядке позиции', function (): void {
+	$math = Subject::create(['name' => 'Математика']);
+	$russian = Subject::create(['name' => 'Русский язык']);
+
+	Topic::create(['subject_id' => $math->id, 'name' => 'Алгебра', 'position' => 2]);
+	Topic::create(['subject_id' => $math->id, 'name' => 'Геометрия', 'position' => 1]);
+	Topic::create(['subject_id' => $russian->id, 'name' => 'Синтаксис', 'position' => 1]);
+
+	$topicNames = $math->topics()
+		->ordered()
+		->pluck('name')
+		->all();
+
+	expect($topicNames)->toBe([
+		'Геометрия',
+		'Алгебра',
+	]);
 });
