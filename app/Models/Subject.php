@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
@@ -36,6 +37,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  */
 class Subject extends Model implements HasMedia
 {
+	use HasFactory;
 	use HasPosition;
 	use InteractsWithMedia;
 

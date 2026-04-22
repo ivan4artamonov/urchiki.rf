@@ -8,10 +8,14 @@ use App\Livewire\Admin\Faq\Create as FaqCreate;
 use App\Livewire\Admin\Faq\Edit as FaqEdit;
 use App\Livewire\Admin\Faq\Index as FaqIndex;
 use App\Livewire\Admin\Login;
-use App\Livewire\Admin\SubjectsTopics;
+use App\Livewire\Admin\Subjects\Create as SubjectsCreate;
+use App\Livewire\Admin\Subjects\Edit as SubjectsEdit;
+use App\Livewire\Admin\Subjects\Index as SubjectsIndex;
 use App\Livewire\Admin\Tariffs\Create as TariffsCreate;
 use App\Livewire\Admin\Tariffs\Edit as TariffsEdit;
 use App\Livewire\Admin\Tariffs\Index as TariffsIndex;
+use App\Livewire\Admin\Topics\Create as TopicsCreate;
+use App\Livewire\Admin\Topics\Edit as TopicsEdit;
 use App\Livewire\Admin\Users\Create as UsersCreate;
 use App\Livewire\Admin\Users\Edit as UsersEdit;
 use App\Livewire\Admin\Users\Index as UsersIndex;
@@ -54,7 +58,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/', Dashboard::class)->name('dashboard');
         Route::get('/worksheets', Worksheets::class)->name('worksheets');
-        Route::get('/subjects-topics', SubjectsTopics::class)->name('subjects-topics');
+        Route::prefix('subjects')->name('subjects.')->group(function () {
+            Route::get('/', SubjectsIndex::class)->name('index');
+            Route::get('/create', SubjectsCreate::class)->name('create');
+            Route::get('/{subject}/edit', SubjectsEdit::class)->name('edit');
+        });
+
+        Route::prefix('topics')->name('topics.')->group(function () {
+            Route::get('/create/{subject}', TopicsCreate::class)->name('create');
+            Route::get('/{topic}/edit', TopicsEdit::class)->name('edit');
+        });
         Route::prefix('users')->name('users.')->group(function () {
             Route::get('/', UsersIndex::class)->name('index');
             Route::get('/create', UsersCreate::class)->name('create');

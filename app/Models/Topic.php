@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 use Nevadskiy\Position\HasPosition;
 use Nevadskiy\Position\PositionObserver;
 use Nevadskiy\Position\PositioningScope;
@@ -14,6 +16,7 @@ use Nevadskiy\Position\PositioningScope;
  *
  * @property int $subject_id Идентификатор предмета, к которому относится тема.
  * @property string $name Название темы для интерфейса.
+ * @property string $slug Уникальный слаг URL темы.
  * @property int $position Порядок отображения темы внутри предмета.
  * @property null|string $seo_title SEO-заголовок страницы темы.
  * @property null|string $seo_description SEO-описание страницы темы.
@@ -24,6 +27,7 @@ use Nevadskiy\Position\PositioningScope;
  */
 class Topic extends Model
 {
+	use HasFactory;
 	use HasPosition;
 
 	/**
@@ -44,6 +48,20 @@ class Topic extends Model
 	protected static function booted(): void
 	{
 		static::observe(PositionObserver::class);
+
+		static::saving(
+			/**
+			 * Обработчик события «saving»: дополняет slug до сохранения в БД.
+			 *
+			 * @param Topic $topic Модель, которая будет сохранена.
+			 * @return void
+			 */
+			function (Topic $topic): void {
+				if ($topic->slug === null || $topic->slug === '') {
+					$topic->slug = Str::slug($topic->name);
+				}
+			}
+		);
 	}
 
 	/**
@@ -54,6 +72,7 @@ class Topic extends Model
 	protected $fillable = [
 		'subject_id',
 		'name',
+		'slug',
 		'position',
 		'seo_title',
 		'seo_description',
@@ -70,6 +89,16 @@ class Topic extends Model
 		'subject_id' => 'integer',
 		'position' => 'integer',
 	];
+
+	/**
+	 * Имя столбца для неявной маршрутизации и подстановки модели из URL.
+	 *
+	 * @return non-empty-string Всегда «slug», а не числовой id.
+	 */
+	public function getRouteKeyName(): string
+	{
+		return 'slug';
+	}
 
 	/**
 	 * Группирует позиции тем в рамках одного предмета.

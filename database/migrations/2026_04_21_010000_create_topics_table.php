@@ -15,6 +15,7 @@ return new class extends Migration
 			$table->id();
 			$table->foreignId('subject_id')->constrained()->cascadeOnDelete();
 			$table->string('name');
+			$table->string('slug', 96)->unique();
 			$table->unsignedInteger('position')->default(0);
 			$table->timestamps();
 

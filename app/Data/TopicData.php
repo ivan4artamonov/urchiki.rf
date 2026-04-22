@@ -12,6 +12,7 @@ class TopicData extends Data
 	/**
 	 * @param int $subject_id Идентификатор предмета, к которому относится тема.
 	 * @param string $name Название темы для интерфейса.
+	 * @param string|null $slug Сегмент URL; если null или пустая строка — слаг сформирует модель при сохранении.
 	 * @param int|null $position Порядок темы в рамках предмета; если null — позицию назначит пакет позиций при сохранении.
 	 * @param string|null $seo_title SEO-заголовок страницы темы.
 	 * @param string|null $seo_description SEO-описание страницы темы.
@@ -21,6 +22,7 @@ class TopicData extends Data
 	public function __construct(
 		public int $subject_id,
 		public string $name,
+		public ?string $slug = null,
 		public ?int $position = null,
 		public ?string $seo_title = null,
 		public ?string $seo_description = null,
@@ -39,6 +41,10 @@ class TopicData extends Data
 			'subject_id' => $this->subject_id,
 			'name' => $this->name,
 		];
+
+		if ($this->slug !== null && $this->slug !== '') {
+			$attributes['slug'] = $this->slug;
+		}
 
 		if ($this->position !== null) {
 			$attributes['position'] = $this->position;
