@@ -8,7 +8,7 @@
 		->ordered()
 		->get()
 		->map(fn (Subject $subject): array => [
-			'href' => url('/'.$subject->slug),
+			'href' => route('site.subject', $subject),
 			'label' => $subject->name,
 		])
 		->all();

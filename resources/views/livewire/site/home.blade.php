@@ -6,7 +6,7 @@
 		@else
 			<div class="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
 				@foreach ($subjects as $subject)
-					<a href="#" class="group block rounded-2xl border border-urchiki-border bg-urchiki-card p-2.5 transition-colors hover:border-urchiki-accent">
+					<a href="{{ route('site.subject', $subject) }}" wire:navigate class="group block rounded-2xl border border-urchiki-border bg-urchiki-card p-2.5 transition-colors hover:border-urchiki-accent">
 						<span class="flex items-start gap-2">
 							@if ($subject->icon_url)
 								<img

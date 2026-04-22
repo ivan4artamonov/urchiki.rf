@@ -26,6 +26,7 @@ use App\Livewire\Admin\Worksheets;
 use App\Livewire\Site\Account\Profile as AccountProfile;
 use App\Livewire\Site\Faq as SiteFaq;
 use App\Livewire\Site\Home;
+use App\Livewire\Site\Subject as SiteSubject;
 use App\Livewire\Site\SiteAuth;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,8 @@ Route::name('site.')->group(function () {
             Route::get('{provider}/callback', [SocialAuthController::class, 'callback'])
                 ->name('callback');
         });
+
+    Route::get('/{subject}', SiteSubject::class)->name('subject');
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
