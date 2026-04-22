@@ -1,14 +1,17 @@
 @use('App\Support\CopyrightYearRange')
+@use('App\Models\Subject')
 
 @php
 	$home = route('site.home');
 	$navActiveHome = request()->routeIs('site.home');
-	$footerNavSubjectItems = [
-		['href' => url('/matematika'), 'label' => 'Математика'],
-		['href' => url('/russkij-yazyk'), 'label' => 'Русский язык'],
-		['href' => url('/okruzhayushchij-mir'), 'label' => 'Окружающий мир'],
-		['href' => url('/anglijskij-yazyk'), 'label' => 'Английский язык'],
-	];
+	$footerNavSubjectItems = Subject::query()
+		->ordered()
+		->get()
+		->map(fn (Subject $subject): array => [
+			'href' => url('/'.$subject->slug),
+			'label' => $subject->name,
+		])
+		->all();
 	$footerNavGradeItems = $footerGrades
 		->map(fn ($grade): array => [
 			'href' => url('/'.$grade->slug),
