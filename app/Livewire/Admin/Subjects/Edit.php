@@ -10,9 +10,12 @@ use App\Support\Notification;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Edit extends Component
 {
+	use WithFileUploads;
+
 	public SubjectForm $form;
 	public Subject $subject;
 

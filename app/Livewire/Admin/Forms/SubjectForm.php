@@ -7,6 +7,7 @@ use App\Data\SubjectData;
 use App\Models\Subject;
 use Exception;
 use Livewire\Attributes\Validate;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\Form;
 
 /**
@@ -34,6 +35,11 @@ class SubjectForm extends Form
 	#[Validate('nullable|string|max:20000')]
 	public ?string $article = null;
 
+	#[Validate('nullable|file|mimetypes:image/jpeg,image/png,image/webp,image/svg+xml|max:2048')]
+	public ?TemporaryUploadedFile $icon = null;
+
+	public ?string $iconUrl = null;
+
 	/**
 	 * Пользовательские сообщения валидации полей формы.
 	 *
@@ -56,6 +62,9 @@ class SubjectForm extends Form
 			'seoKeywords.max' => 'Поле "SEO-ключевые слова" не должно превышать 2000 символов.',
 			'article.string' => 'Поле "Статья" должно быть строкой.',
 			'article.max' => 'Поле "Статья" не должно превышать 20000 символов.',
+			'icon.file' => 'Поле "Иконка" должно содержать файл.',
+			'icon.mimetypes' => 'Иконка должна быть в формате JPG, PNG, WEBP или SVG.',
+			'icon.max' => 'Размер иконки не должен превышать 2 МБ.',
 		];
 	}
 
@@ -80,6 +89,17 @@ class SubjectForm extends Form
 
 		$this->subject = app(SaveSubjectAction::class)->handle($data, $this->subject);
 
+		if ($this->icon instanceof TemporaryUploadedFile) {
+			$this->subject
+				->addMedia($this->icon->getRealPath())
+				->usingFileName($this->icon->getClientOriginalName())
+				->toMediaCollection('icon');
+
+			$this->icon = null;
+		}
+
+		$this->iconUrl = $this->subject->fresh()->icon_url;
+
 		if ($isNewSubject) {
 			$this->reset();
 		}
@@ -100,6 +120,7 @@ class SubjectForm extends Form
 		$this->seoDescription = $subject->seo_description;
 		$this->seoKeywords = $subject->seo_keywords;
 		$this->article = $subject->article;
+		$this->iconUrl = $subject->icon_url;
 	}
 }
 
