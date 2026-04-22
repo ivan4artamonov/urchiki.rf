@@ -1,9 +1,9 @@
-<div class="flex flex-1 flex-col">
+<x-site.section-block>
 	<x-site.breadcrumbs :items="[
 		'Вопросы и ответы' => '',
 	]" />
 
-	<div class="mx-auto w-full max-w-[720px] flex-1 pt-5 md:pt-6">
+	<div class="mx-auto w-full max-w-[720px] flex-1">
 		<x-site.page-title>Вопросы и ответы</x-site.page-title>
 		<p class="mt-2 text-[15px] leading-snug text-urchiki-muted">
 			Всё, что нужно знать о сервисе Урчики
@@ -24,4 +24,4 @@
 			</x-site.disclosure-group>
 		@endif
 	</div>
-</div>
+</x-site.section-block>
