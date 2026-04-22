@@ -3,7 +3,7 @@
 	'items' => [],
 ])
 
-<nav class="flex flex-wrap items-center gap-x-1.5 text-sm text-urchiki-muted">
+<nav class="mb-3 flex flex-wrap items-center gap-x-1.5 text-sm text-urchiki-muted">
 	<a
 		href="{{ route('site.home') }}"
 		wire:navigate

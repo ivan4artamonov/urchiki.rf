@@ -1,4 +1,8 @@
 <x-site.section-block>
+	<x-site.breadcrumbs :items="[
+		$subject->name => '',
+	]" />
+
 	<x-site.page-title>
 		Рабочие листы по предмету {{ $subject->name }}
 	</x-site.page-title>
