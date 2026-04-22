@@ -6,14 +6,14 @@ use App\Models\Grade;
 use Illuminate\Contracts\View\View;
 
 /**
- * Подставляет в футер сайта список школьных параллелей из БД (по возрастанию номера).
+ * Подставляет в представление сайта список школьных параллелей из БД (по возрастанию номера).
  */
 final class GradeComposer
 {
 	public function compose(View $view): void
 	{
 		$view->with(
-			'footerGrades',
+			'grades',
 			Grade::query()->get(),
 		);
 	}

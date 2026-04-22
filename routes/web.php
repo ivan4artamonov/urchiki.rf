@@ -26,7 +26,7 @@ use App\Livewire\Admin\Worksheets;
 use App\Livewire\Site\Account\Profile as AccountProfile;
 use App\Livewire\Site\Faq as SiteFaq;
 use App\Livewire\Site\Home;
-use App\Livewire\Site\Subject as SiteSubject;
+use App\Livewire\Site\Hub as SiteHub;
 use App\Livewire\Site\SiteAuth;
 use Illuminate\Support\Facades\Route;
 
@@ -53,7 +53,33 @@ Route::name('site.')->group(function () {
                 ->name('callback');
         });
 
-    Route::get('/{subject}', SiteSubject::class)->name('subject');
+    /*
+     * Каталог рабочих листов (хаб): один маршрут, три опциональных сегмента пути.
+     *
+     * Параметры намеренно названы нейтрально (slug1…slug3): первый сегмент по смыслу может быть
+     * либо предметом, либо классом (параллелью). Конкретная интерпретация и ответ 404 выполняются
+     * в Livewire-компоненте App\Livewire\Site\Hub::mount(), а не на уровне implicit route model binding.
+     *
+     * Ограничения ->where([...]) нужны, чтобы этот catch-all не перехватывал служебные URL вида
+     * /__auth_site или пути с подчёркиванием и прочими символами вне набора [a-z0-9-].
+     *
+     * Варианты URL после разбора в хабе:
+     * — /{предмет} — список классов для выбранного предмета;
+     * — /{предмет}/{класс} — список тем предмета в контексте класса;
+     * — /{предмет}/{класс}/{тема} — страница темы (конец ветки, дочерних ссылок нет);
+     * — /{класс} (без slug2 и slug3) — СЕО-страница класса: список предметов со ссылками вида
+     *   /{предмет}/{класс}, чтобы уточнить предмет, не оставаясь на обзоре «все предметы этого класса».
+     *
+     * Если один и тот же слаг существует и у предмета, и у класса, приоритет у предмета (не ломаем
+     * старые ссылки «сначала предмет»). Лишние сегменты при режиме «только класс в slug1» дают 404.
+     */
+    Route::get('/{slug1}/{slug2?}/{slug3?}', SiteHub::class)
+        ->where([
+            'slug1' => '[a-z0-9-]+',
+            'slug2' => '[a-z0-9-]+',
+            'slug3' => '[a-z0-9-]+',
+        ])
+        ->name('hub');
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {

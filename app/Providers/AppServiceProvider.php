@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('admin', AdminNavItemsComposer::class);
-        View::composer(['components.site.footer', 'livewire.site.subject'], GradeComposer::class);
+        View::composer('components.site.footer', GradeComposer::class);
 
         Event::listen(SocialiteWasCalled::class, [VKontakteExtendSocialite::class, 'handle']);
         Event::listen(SocialiteWasCalled::class, [YandexExtendSocialite::class, 'handle']);

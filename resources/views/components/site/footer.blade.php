@@ -1,4 +1,5 @@
 @use('App\Support\CopyrightYearRange')
+@use('App\Support\SiteHubUrl')
 @use('App\Models\Subject')
 
 @php
@@ -7,21 +8,19 @@
 	$footerNavSubjectItems = Subject::query()
 		->ordered()
 		->get()
-		->map(fn (Subject $subject): array => [
-			'href' => route('site.subject', $subject),
-			'label' => $subject->name,
+		->mapWithKeys(fn (Subject $subject): array => [
+			$subject->name => SiteHubUrl::make($subject),
 		])
 		->all();
-	$footerNavGradeItems = $footerGrades
-		->map(fn ($grade): array => [
-			'href' => url('/'.$grade->slug),
-			'label' => $grade->label,
+	$footerNavGradeItems = $grades
+		->mapWithKeys(fn ($grade): array => [
+			$grade->label => SiteHubUrl::make(null, $grade),
 		])
 		->all();
 	$footerNavServiceItems = [
-		['href' => url('/subscribe'), 'label' => 'Тарифы'],
-		['href' => route('site.faq'), 'label' => 'Вопросы и ответы'],
-		['href' => url('/privacy'), 'label' => 'Политика конфиденциальности'],
+		'Тарифы' => url('/subscribe'),
+		'Вопросы и ответы' => route('site.faq'),
+		'Политика конфиденциальности' => url('/privacy'),
 	];
 @endphp
 
