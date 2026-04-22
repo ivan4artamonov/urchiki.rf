@@ -47,8 +47,7 @@
 
 		<nav class="mt-3 hidden w-full border-t border-urchiki-border pt-5 md:order-1 md:mt-0 md:flex md:w-auto md:flex-row md:items-center md:border-0 md:pt-0" id="site-nav">
 			<div class="flex flex-col gap-y-2 md:flex md:flex-row md:items-center md:gap-x-2 md:gap-y-0">
-				<x-site.nav-link :href="$home">Предметы</x-site.nav-link>
-				<x-site.nav-link :href="$home">Классы</x-site.nav-link>
+				<x-site.nav-link :href="$home">Рабочие листы</x-site.nav-link>
 				<x-site.nav-link :href="url('/subscribe')">Подписка</x-site.nav-link>
 				<x-site.nav-link :href="route('site.faq')">Вопросы и ответы</x-site.nav-link>
 			</div>
