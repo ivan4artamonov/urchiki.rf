@@ -20,7 +20,6 @@ test('QuarterSeeder создаёт по 4 четверти для каждого
 	Grade::query()->each(function (Grade $grade): void {
 		$numbers = Quarter::query()
 			->where('grade_id', $grade->id)
-			->orderBy('number')
 			->pluck('number')
 			->all();
 

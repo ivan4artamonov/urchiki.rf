@@ -10,6 +10,7 @@ test('передаёт в представление меню админки в 
 	$expected = [
 		'Рабочие листы' => route('admin.worksheets'),
 		'Предметы' => route('admin.subjects.index'),
+		'Классы' => route('admin.grades.index'),
 		'Пользователи' => route('admin.users.index'),
 		'ЧаВо' => route('admin.faq.index'),
 		'Тарифы' => route('admin.tariffs.index'),

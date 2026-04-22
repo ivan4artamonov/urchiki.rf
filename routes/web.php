@@ -7,7 +7,10 @@ use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\Faq\Create as FaqCreate;
 use App\Livewire\Admin\Faq\Edit as FaqEdit;
 use App\Livewire\Admin\Faq\Index as FaqIndex;
+use App\Livewire\Admin\Grades\Edit as GradesEdit;
+use App\Livewire\Admin\Grades\Index as GradesIndex;
 use App\Livewire\Admin\Login;
+use App\Livewire\Admin\Quarters\Edit as QuartersEdit;
 use App\Livewire\Admin\Subjects\Create as SubjectsCreate;
 use App\Livewire\Admin\Subjects\Edit as SubjectsEdit;
 use App\Livewire\Admin\Subjects\Index as SubjectsIndex;
@@ -62,6 +65,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', SubjectsIndex::class)->name('index');
             Route::get('/create', SubjectsCreate::class)->name('create');
             Route::get('/{subject}/edit', SubjectsEdit::class)->name('edit');
+        });
+        Route::prefix('grades')->name('grades.')->group(function () {
+            Route::get('/', GradesIndex::class)->name('index');
+            Route::get('/{grade}/edit', GradesEdit::class)->name('edit');
+        });
+
+        Route::prefix('quarters')->name('quarters.')->group(function () {
+            Route::get('/{quarter}/edit', QuartersEdit::class)->name('edit');
         });
 
         Route::prefix('topics')->name('topics.')->group(function () {

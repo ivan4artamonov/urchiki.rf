@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -64,6 +65,21 @@ class Grade extends Model
 	 */
 	protected static function booted(): void
 	{
+		static::addGlobalScope(
+			'ordered_by_number',
+			/**
+			 * Добавляет дефолтную сортировку классов по номеру и идентификатору.
+			 *
+			 * @param Builder<Grade> $query Базовый запрос к модели классов.
+			 * @return void
+			 */
+			function (Builder $query): void {
+				$query
+					->orderBy('number')
+					->orderBy('id');
+			}
+		);
+
 		static::saving(
 			/**
 			 * Обработчик события «saving»: дополняет slug до сохранения в БД.
@@ -76,6 +92,19 @@ class Grade extends Model
 				}
 			}
 		);
+	}
+
+	/**
+	 * Scope для явной сортировки классов по номеру.
+	 *
+	 * @param Builder<Grade> $query Базовый запрос к модели классов.
+	 * @return Builder<Grade> Запрос с сортировкой по номеру и идентификатору.
+	 */
+	public function scopeOrdered(Builder $query): Builder
+	{
+		return $query
+			->orderBy('number')
+			->orderBy('id');
 	}
 
 	/**

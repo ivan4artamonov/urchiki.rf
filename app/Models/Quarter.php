@@ -51,6 +51,29 @@ class Quarter extends Model
 	];
 
 	/**
+	 * Регистрирует дефолтную сортировку четвертей по номеру.
+	 *
+	 * @return void
+	 */
+	protected static function booted(): void
+	{
+		static::addGlobalScope(
+			'ordered_by_number',
+			/**
+			 * Добавляет дефолтную сортировку четвертей по номеру и идентификатору.
+			 *
+			 * @param Builder<Quarter> $query Базовый запрос к модели четвертей.
+			 * @return void
+			 */
+			function (Builder $query): void {
+				$query
+					->orderBy('number')
+					->orderBy('id');
+			}
+		);
+	}
+
+	/**
 	 * Scope для сортировки четвертей по порядковому номеру.
 	 *
 	 * @param Builder<Quarter> $query Базовый запрос к модели четвертей.

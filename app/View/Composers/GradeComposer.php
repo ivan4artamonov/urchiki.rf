@@ -14,7 +14,7 @@ final class GradeComposer
 	{
 		$view->with(
 			'footerGrades',
-			Grade::query()->orderBy('number')->get(),
+			Grade::query()->get(),
 		);
 	}
 }

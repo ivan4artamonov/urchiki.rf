@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
 
-test('scope ordered сортирует четверти по номеру', function (): void {
+test('четверти по умолчанию сортируются по номеру', function (): void {
 	$grade = Grade::create(['number' => 7]);
 
 	Quarter::create(['grade_id' => $grade->id, 'number' => 3]);
@@ -16,7 +16,6 @@ test('scope ordered сортирует четверти по номеру', func
 	Quarter::create(['grade_id' => $grade->id, 'number' => 2]);
 
 	$numbers = Quarter::query()
-		->ordered()
 		->pluck('number')
 		->all();
 
@@ -64,3 +63,4 @@ test('массовое заполнение поддерживает seo-пол�
 		->and($quarter->seo_keywords)->toBe('первая четверть, 6 класс')
 		->and($quarter->article)->toBe('Текст статьи для первой четверти');
 });
+
