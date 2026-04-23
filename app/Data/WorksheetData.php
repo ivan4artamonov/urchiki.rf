@@ -13,6 +13,7 @@ class WorksheetData extends Data
 	 * @param int $topic_id Идентификатор темы, к которой привязан рабочий лист.
 	 * @param int $quarter_id Идентификатор четверти, к которой привязан рабочий лист.
 	 * @param string $title Название рабочего листа.
+	 * @param string|null $slug Уникальный слаг URL рабочего листа.
 	 * @param string|null $seo_title SEO-заголовок страницы рабочего листа.
 	 * @param string|null $seo_description SEO-описание страницы рабочего листа.
 	 * @param string|null $seo_keywords SEO-ключевые слова страницы рабочего листа.
@@ -22,6 +23,7 @@ class WorksheetData extends Data
 		public int $topic_id,
 		public int $quarter_id,
 		public string $title,
+		public ?string $slug = null,
 		public ?string $seo_title = null,
 		public ?string $seo_description = null,
 		public ?string $seo_keywords = null,
@@ -40,6 +42,10 @@ class WorksheetData extends Data
 			'quarter_id' => $this->quarter_id,
 			'title' => $this->title,
 		];
+
+		if ($this->slug !== null && $this->slug !== '') {
+			$attributes['slug'] = $this->slug;
+		}
 
 		if ($this->seo_title !== null) {
 			$attributes['seo_title'] = $this->seo_title;

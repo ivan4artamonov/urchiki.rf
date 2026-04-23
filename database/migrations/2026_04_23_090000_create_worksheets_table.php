@@ -16,6 +16,7 @@ return new class extends Migration
 			$table->foreignId('topic_id')->constrained()->cascadeOnDelete();
 			$table->foreignId('quarter_id')->constrained()->cascadeOnDelete();
 			$table->string('title');
+			$table->string('slug', 128)->unique();
 			$table->string('seo_title')->nullable();
 			$table->text('seo_description')->nullable();
 			$table->text('seo_keywords')->nullable();

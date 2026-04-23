@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -16,6 +17,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property int $topic_id Идентификатор темы, через которую лист связан с предметом.
  * @property int $quarter_id Идентификатор четверти, через которую лист связан с классом.
  * @property string $title Название рабочего листа.
+ * @property string $slug Уникальный слаг URL рабочего листа.
  * @property null|string $seo_title SEO-заголовок страницы листа.
  * @property null|string $seo_description SEO-описание страницы листа.
  * @property null|string $seo_keywords SEO-ключевые слова страницы листа.
@@ -37,6 +39,7 @@ class Worksheet extends Model implements HasMedia
 		'topic_id',
 		'quarter_id',
 		'title',
+		'slug',
 		'seo_title',
 		'seo_description',
 		'seo_keywords',
@@ -52,6 +55,28 @@ class Worksheet extends Model implements HasMedia
 		'topic_id' => 'integer',
 		'quarter_id' => 'integer',
 	];
+
+	/**
+	 * Регистрирует обработчики событий модели рабочего листа.
+	 *
+	 * @return void
+	 */
+	protected static function booted(): void
+	{
+		static::saving(
+			/**
+			 * Заполняет слаг из заголовка, если он не задан перед сохранением.
+			 *
+			 * @param Worksheet $worksheet Сохраняемая модель рабочего листа.
+			 * @return void
+			 */
+			function (Worksheet $worksheet): void {
+				if ($worksheet->slug === null || $worksheet->slug === '') {
+					$worksheet->slug = Str::slug($worksheet->title);
+				}
+			}
+		);
+	}
 
 	/**
 	 * Scope для фильтрации листов по теме.

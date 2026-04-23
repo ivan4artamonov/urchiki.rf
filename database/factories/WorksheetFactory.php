@@ -7,6 +7,7 @@ use App\Models\Quarter;
 use App\Models\Topic;
 use App\Models\Worksheet;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<Worksheet>
@@ -31,7 +32,8 @@ class WorksheetFactory extends Factory
 		return [
 			'topic_id' => Topic::factory(),
 			'quarter_id' => $quarter->id,
-			'title' => fake()->sentence(4),
+			'title' => $title = fake()->sentence(4),
+			'slug' => Str::slug($title) . '-' . fake()->unique()->numberBetween(1, 9999),
 			'seo_title' => fake()->optional()->sentence(),
 			'seo_description' => fake()->optional()->sentence(),
 			'seo_keywords' => fake()->optional()->words(5, true),

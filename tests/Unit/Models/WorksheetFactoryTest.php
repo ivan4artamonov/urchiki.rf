@@ -13,6 +13,7 @@ test('фабрика рабочего листа создает запись с 
 		->and($worksheet->topic_id)->toBeInt()
 		->and($worksheet->quarter_id)->toBeInt()
 		->and($worksheet->title)->toBeString()->not->toBe('')
+		->and($worksheet->slug)->toBeString()->not->toBe('')
 		->and($worksheet->topic)->not->toBeNull()
 		->and($worksheet->quarter)->not->toBeNull();
 });
@@ -20,9 +21,11 @@ test('фабрика рабочего листа создает запись с 
 test('фабрика рабочего листа принимает переопределение атрибутов', function (): void {
 	$worksheet = Worksheet::factory()->create([
 		'title' => 'Кастомный лист',
+		'slug' => 'custom-list',
 		'seo_title' => 'Кастомный SEO title',
 	]);
 
 	expect($worksheet->title)->toBe('Кастомный лист')
+		->and($worksheet->slug)->toBe('custom-list')
 		->and($worksheet->seo_title)->toBe('Кастомный SEO title');
 });
