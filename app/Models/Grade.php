@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property null|string $article Текст статьи для страницы класса.
  * @property-read string $label Подпись для UI («3 класс»), вычисляется аксессором, в БД не хранится.
  * @property-read Collection<int, Quarter> $quarters Четверти, относящиеся к этому классу.
+ * @property-read Collection<int, Worksheet> $worksheets Рабочие листы класса через четверти.
  */
 class Grade extends Model
 {
@@ -135,5 +137,15 @@ class Grade extends Model
 	public function quarters(): HasMany
 	{
 		return $this->hasMany(Quarter::class);
+	}
+
+	/**
+	 * Возвращает связь «класс содержит рабочие листы через четверти».
+	 *
+	 * @return HasManyThrough<Worksheet, Quarter, Grade> Запрос на выборку листов текущего класса.
+	 */
+	public function worksheets(): HasManyThrough
+	{
+		return $this->hasManyThrough(Worksheet::class, Quarter::class);
 	}
 }

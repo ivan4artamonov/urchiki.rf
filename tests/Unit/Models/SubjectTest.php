@@ -2,6 +2,9 @@
 
 use App\Models\Subject;
 use App\Models\Topic;
+use App\Models\Grade;
+use App\Models\Quarter;
+use App\Models\Worksheet;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -150,4 +153,28 @@ test('коллекция icon отклоняет файлы с недопуст�
 	$subject
 		->addMedia(UploadedFile::fake()->create('icon.txt', 10, 'text/plain'))
 		->toMediaCollection('icon');
+});
+
+test('связь worksheets возвращает рабочие листы предмета через темы', function (): void {
+	$subject = Subject::create(['name' => 'Алгебра']);
+	$otherSubject = Subject::create(['name' => 'География']);
+	$topic = Topic::create(['subject_id' => $subject->id, 'name' => 'Уравнения']);
+	$otherTopic = Topic::create(['subject_id' => $otherSubject->id, 'name' => 'Рельеф']);
+	$grade = Grade::create(['number' => 8]);
+	$quarter = Quarter::create(['grade_id' => $grade->id, 'number' => 1]);
+
+	Worksheet::create([
+		'topic_id' => $topic->id,
+		'quarter_id' => $quarter->id,
+		'title' => 'Лист по уравнениям',
+	]);
+	Worksheet::create([
+		'topic_id' => $otherTopic->id,
+		'quarter_id' => $quarter->id,
+		'title' => 'Лист по рельефу',
+	]);
+
+	$worksheetTitles = $subject->worksheets()->pluck('title')->all();
+
+	expect($worksheetTitles)->toBe(['Лист по уравнениям']);
 });

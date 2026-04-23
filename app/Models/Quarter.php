@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Учебная четверть внутри конкретного класса.
@@ -22,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read string $ordinal_label Порядковая метка четверти («Первая», «Вторая», ...).
  * @property-read string $short_label Короткая метка четверти («1 четверть», «2 четверть», ...).
  * @property-read string $full_label Полная метка четверти («Первая четверть», «Вторая четверть», ...).
+ * @property-read Collection<int, Worksheet> $worksheets Рабочие листы четверти.
  * @method static Builder<self> ordered() Получить четверти в порядке номеров.
  */
 class Quarter extends Model
@@ -94,6 +97,16 @@ class Quarter extends Model
 	public function grade(): BelongsTo
 	{
 		return $this->belongsTo(Grade::class);
+	}
+
+	/**
+	 * Возвращает связь «четверть содержит рабочие листы».
+	 *
+	 * @return HasMany<Worksheet, Quarter> Запрос на выборку листов текущей четверти.
+	 */
+	public function worksheets(): HasMany
+	{
+		return $this->hasMany(Worksheet::class);
 	}
 
 	/**

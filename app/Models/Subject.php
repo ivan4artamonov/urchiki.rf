@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
 use Nevadskiy\Position\HasPosition;
 use Nevadskiy\Position\PositionObserver;
@@ -33,6 +34,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property null|string $article Текст статьи для страницы предмета.
  * @property-read null|string $icon_url URL иконки предмета из медиаколлекции.
  * @property-read Collection<int, Topic> $topics Темы текущего предмета.
+ * @property-read Collection<int, Worksheet> $worksheets Рабочие листы предмета через темы.
  * @method static Builder<self> ordered() Получить предметы в порядке отображения.
  */
 class Subject extends Model implements HasMedia
@@ -140,6 +142,16 @@ class Subject extends Model implements HasMedia
 	public function topics(): HasMany
 	{
 		return $this->hasMany(Topic::class)->ordered();
+	}
+
+	/**
+	 * Возвращает связь «предмет содержит рабочие листы через темы».
+	 *
+	 * @return HasManyThrough<Worksheet, Topic, Subject> Запрос на выборку листов текущего предмета.
+	 */
+	public function worksheets(): HasManyThrough
+	{
+		return $this->hasManyThrough(Worksheet::class, Topic::class);
 	}
 
 	/**

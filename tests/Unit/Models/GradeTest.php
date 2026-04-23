@@ -1,6 +1,10 @@
 <?php
 
 use App\Models\Grade;
+use App\Models\Quarter;
+use App\Models\Subject;
+use App\Models\Topic;
+use App\Models\Worksheet;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -63,4 +67,28 @@ test('по умолчанию классы возвращаются в поря�
 		->all();
 
 	expect($numbers)->toBe([2, 7, 10]);
+});
+
+test('связь worksheets возвращает рабочие листы класса через четверти', function (): void {
+	$grade = Grade::create(['number' => 7]);
+	$otherGrade = Grade::create(['number' => 8]);
+	$quarter = Quarter::create(['grade_id' => $grade->id, 'number' => 1]);
+	$otherQuarter = Quarter::create(['grade_id' => $otherGrade->id, 'number' => 1]);
+	$subject = Subject::create(['name' => 'Английский язык']);
+	$topic = Topic::create(['subject_id' => $subject->id, 'name' => 'Глагол to be']);
+
+	Worksheet::create([
+		'topic_id' => $topic->id,
+		'quarter_id' => $quarter->id,
+		'title' => 'Лист по to be',
+	]);
+	Worksheet::create([
+		'topic_id' => $topic->id,
+		'quarter_id' => $otherQuarter->id,
+		'title' => 'Лист по Present Simple',
+	]);
+
+	$worksheetTitles = $grade->worksheets()->pluck('title')->all();
+
+	expect($worksheetTitles)->toBe(['Лист по to be']);
 });

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use Nevadskiy\Position\HasPosition;
 use Nevadskiy\Position\PositionObserver;
@@ -23,6 +25,7 @@ use Nevadskiy\Position\PositioningScope;
  * @property null|string $seo_keywords SEO-ключевые слова страницы темы.
  * @property null|string $article Текст статьи для страницы темы.
  * @property-read Subject $subject Предмет, к которому привязана тема.
+ * @property-read Collection<int, Worksheet> $worksheets Рабочие листы темы.
  * @method static Builder<self> ordered() Получить темы в порядке отображения.
  */
 class Topic extends Model
@@ -131,5 +134,15 @@ class Topic extends Model
 	public function subject(): BelongsTo
 	{
 		return $this->belongsTo(Subject::class);
+	}
+
+	/**
+	 * Возвращает связь «тема содержит рабочие листы».
+	 *
+	 * @return HasMany<Worksheet, Topic> Запрос на выборку листов текущей темы.
+	 */
+	public function worksheets(): HasMany
+	{
+		return $this->hasMany(Worksheet::class);
 	}
 }
