@@ -18,6 +18,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property int $quarter_id Идентификатор четверти, через которую лист связан с классом.
  * @property string $title Название рабочего листа.
  * @property string $slug Уникальный слаг URL рабочего листа.
+ * @property bool $is_active Признак публикации рабочего листа.
  * @property null|string $seo_title SEO-заголовок страницы листа.
  * @property null|string $seo_description SEO-описание страницы листа.
  * @property null|string $seo_keywords SEO-ключевые слова страницы листа.
@@ -40,6 +41,7 @@ class Worksheet extends Model implements HasMedia
 		'quarter_id',
 		'title',
 		'slug',
+		'is_active',
 		'seo_title',
 		'seo_description',
 		'seo_keywords',
@@ -54,6 +56,7 @@ class Worksheet extends Model implements HasMedia
 	protected $casts = [
 		'topic_id' => 'integer',
 		'quarter_id' => 'integer',
+		'is_active' => 'boolean',
 	];
 
 	/**
@@ -154,6 +157,30 @@ class Worksheet extends Model implements HasMedia
 				$quarterQuery->where('grade_id', $gradeId);
 			}
 		);
+	}
+
+	/**
+	 * Scope для сортировки листов по дате загрузки от новых к старым.
+	 *
+	 * @param Builder<Worksheet> $query Базовый запрос к рабочим листам.
+	 * @return Builder<Worksheet> Запрос с сортировкой по времени создания.
+	 */
+	public function scopeLatestUploaded(Builder $query): Builder
+	{
+		return $query
+			->orderByDesc('created_at')
+			->orderByDesc('id');
+	}
+
+	/**
+	 * Scope для выборки только опубликованных рабочих листов.
+	 *
+	 * @param Builder<Worksheet> $query Базовый запрос к рабочим листам.
+	 * @return Builder<Worksheet> Запрос, ограниченный опубликованными листами.
+	 */
+	public function scopePublished(Builder $query): Builder
+	{
+		return $query->where('is_active', true);
 	}
 
 	/**

@@ -13,6 +13,7 @@ class WorksheetData extends Data
 	 * @param int $topic_id Идентификатор темы, к которой привязан рабочий лист.
 	 * @param int $quarter_id Идентификатор четверти, к которой привязан рабочий лист.
 	 * @param string $title Название рабочего листа.
+	 * @param bool $is_active Признак публикации рабочего листа.
 	 * @param string|null $slug Уникальный слаг URL рабочего листа.
 	 * @param string|null $seo_title SEO-заголовок страницы рабочего листа.
 	 * @param string|null $seo_description SEO-описание страницы рабочего листа.
@@ -23,6 +24,7 @@ class WorksheetData extends Data
 		public int $topic_id,
 		public int $quarter_id,
 		public string $title,
+		public bool $is_active = true,
 		public ?string $slug = null,
 		public ?string $seo_title = null,
 		public ?string $seo_description = null,
@@ -33,7 +35,7 @@ class WorksheetData extends Data
 	/**
 	 * Возвращает атрибуты для сохранения модели рабочего листа.
 	 *
-	 * @return array<string, int|string|null>
+	 * @return array<string, int|string|bool|null>
 	 */
 	public function toModelAttributes(): array
 	{
@@ -41,6 +43,7 @@ class WorksheetData extends Data
 			'topic_id' => $this->topic_id,
 			'quarter_id' => $this->quarter_id,
 			'title' => $this->title,
+			'is_active' => $this->is_active,
 		];
 
 		if ($this->slug !== null && $this->slug !== '') {

@@ -34,6 +34,7 @@ class WorksheetFactory extends Factory
 			'quarter_id' => $quarter->id,
 			'title' => $title = fake()->sentence(4),
 			'slug' => Str::slug($title) . '-' . fake()->unique()->numberBetween(1, 9999),
+			'is_active' => fake()->boolean(80),
 			'seo_title' => fake()->optional()->sentence(),
 			'seo_description' => fake()->optional()->sentence(),
 			'seo_keywords' => fake()->optional()->words(5, true),

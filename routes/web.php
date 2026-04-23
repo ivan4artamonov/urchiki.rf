@@ -22,7 +22,9 @@ use App\Livewire\Admin\Topics\Edit as TopicsEdit;
 use App\Livewire\Admin\Users\Create as UsersCreate;
 use App\Livewire\Admin\Users\Edit as UsersEdit;
 use App\Livewire\Admin\Users\Index as UsersIndex;
-use App\Livewire\Admin\Worksheets;
+use App\Livewire\Admin\Worksheets\Create as WorksheetsCreate;
+use App\Livewire\Admin\Worksheets\Edit as WorksheetsEdit;
+use App\Livewire\Admin\Worksheets\Index as WorksheetsIndex;
 use App\Livewire\Site\Account\Profile as AccountProfile;
 use App\Livewire\Site\Faq as SiteFaq;
 use App\Livewire\Site\Home;
@@ -37,7 +39,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/', Dashboard::class)->name('dashboard');
-        Route::get('/worksheets', Worksheets::class)->name('worksheets');
+			Route::prefix('worksheets')->name('worksheets.')->group(function () {
+				Route::get('/', WorksheetsIndex::class)->name('index');
+				Route::get('/create', WorksheetsCreate::class)->name('create');
+				Route::get('/{worksheet}/edit', WorksheetsEdit::class)->name('edit');
+			});
         Route::prefix('subjects')->name('subjects.')->group(function () {
             Route::get('/', SubjectsIndex::class)->name('index');
             Route::get('/create', SubjectsCreate::class)->name('create');

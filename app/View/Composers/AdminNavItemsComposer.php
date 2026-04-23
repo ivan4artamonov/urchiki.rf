@@ -18,7 +18,7 @@ final class AdminNavItemsComposer
 	public function compose(View $view): void
 	{
 		$view->with('adminNavItems', [
-			'Рабочие листы' => route('admin.worksheets'),
+			'Рабочие листы' => route('admin.worksheets.index'),
 			'Предметы' => route('admin.subjects.index'),
 			'Классы' => route('admin.grades.index'),
 			'Пользователи' => route('admin.users.index'),
